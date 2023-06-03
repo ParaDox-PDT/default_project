@@ -1,11 +1,11 @@
 class AppImages{
   //png
-  static const String logo = "assets/images/logo.png";
-  static const String logo2 = "assets/images/logo2.png";
-  static const String screen1 = "assets/images/screen1.png";
-  static const String screen2 = "assets/images/screen2.png";
-  static const String screen3 = "assets/images/screen3.png";
+  static const String apple="assets/images/apple.png";
+  static const String google="assets/images/google.png";
   //svg
-  static  const String blueDot="assets/svg/blue_dot.svg";
-  static  const String greyDot="assets/svg/grey_dot.svg";
+  static const String backArrow = "assets/svg/back_arrow.svg";
+  static const String email = "assets/svg/email.svg";
+  static const String eyes = "assets/svg/eyes.svg";
+  static const String lock = "assets/svg/lock.svg";
+  static const String user = "assets/svg/user.svg";
 }
