@@ -2,25 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../utils/colors.dart';
-import '../../utils/icons.dart';
 
 class EmailField extends StatelessWidget {
-  const EmailField(this.title, this.icon, {super.key});
-  final String title;
-  final String icon;
+  const EmailField({super.key, required this.text, required this.img});
+  final String text;
+  final String img;
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
     double height = MediaQuery
         .of(context)
         .size
         .height;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       height: height * (50 / 812),
       decoration: BoxDecoration(
           border: Border.all(
@@ -34,11 +29,11 @@ class EmailField extends StatelessWidget {
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           contentPadding:
-          EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+          const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
           border: InputBorder.none,
-          icon: SvgPicture.asset(icon),
-          hintText: title,
-          hintStyle: TextStyle(
+          icon: SvgPicture.asset(img),
+          hintText: text,
+          hintStyle: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
               color: AppColors.C_879EA4,

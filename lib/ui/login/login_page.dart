@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:n8_default_project/ui/sign_up/sign_up_page.dart';
+import 'package:n8_default_project/ui/widgets/email_field.dart';
 import 'package:n8_default_project/ui/widgets/global_button.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:n8_default_project/utils/icons.dart';
@@ -76,59 +77,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: height * (36 / 812),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                height: height * (50 / 812),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 1, color: AppColors.C_1F5460.withOpacity(0.2)),
-                    borderRadius: BorderRadius.circular(4)),
-                child: TextField(
-                  cursorHeight: 20,
-                  cursorWidth: 1.4,
-                  cursorColor: AppColors.C_879EA4.withOpacity(0.2),
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                    border: InputBorder.none,
-                    icon: SvgPicture.asset(AppImages.user),
-                    hintText: "Email or username",
-                    hintStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.C_879EA4,
-                        fontFamily: "Sora"),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide:
-                      const BorderSide(width: 1, color: AppColors.C_FFFFFF),
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                        width: 1,
-                        color: AppColors.C_FFFFFF,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                        width: 1,
-                        color: AppColors.C_FFFFFF,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                        width: 1,
-                        color: AppColors.C_FFFFFF,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              const EmailField(text: "Email or username", img: AppImages.user),
               SizedBox(
                 height: height * (24 / 812),
               ),
@@ -254,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                         onTap: () {
                           Navigator.pushReplacement(context, MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return const SignUp();
+                                return const SignUpPage();
                               }));
                         },
                         child: const Text(
