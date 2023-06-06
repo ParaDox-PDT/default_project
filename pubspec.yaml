@@ -40,13 +40,47 @@ flutter:
 
 
   fonts:
-    - family: Sora
+    - family: Poppins
       fonts:
-        - asset: assets/fonts/Sora-Regular.ttf
-        - asset: assets/fonts/Sora-Light.ttf
-        - asset: assets/fonts/Sora-Medium.ttf
-        - asset: assets/fonts/Sora-SemiBold.ttf
-        - asset: assets/fonts/Sora-Bold.ttf
-        - asset: assets/fonts/Sora-ExtraBold.ttf
-          style: italic
+        - asset: assets/fonts/Poppins/Montserrat-Black.ttf
+        - asset: assets/fonts/Poppins/Montserrat-BlackItalic.ttf
+        - asset: assets/fonts/Poppins/Montserrat-Bold.ttf
+        - asset: assets/fonts/Poppins/Montserrat-BlackItalic.ttf
+        - asset: assets/fonts/Poppins/Montserrat-ExtraBold.ttf
+        - asset: assets/fonts/Poppins/Montserrat-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Poppins/Montserrat-ExtraLight.ttf
+        - asset: assets/fonts/Poppins/Montserrat-ExtraLightItalic.ttf
+        - asset: assets/fonts/Poppins/Montserrat-Italic.ttf
+        - asset: assets/fonts/Poppins/Montserrat-Light.ttf
+        - asset: assets/fonts/Poppins/Montserrat-LightItalic.ttf
+        - asset: assets/fonts/Poppins/Montserrat-Medium.ttf
+        - asset: assets/fonts/Poppins/Montserrat-MediumItalic.ttf
+        - asset: assets/fonts/Poppins/Montserrat-Regular.ttf
+        - asset: assets/fonts/Poppins/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/Poppins/Montserrat-SemiBoldItalic.ttf
+        - asset: assets/fonts/Poppins/Montserrat-Thin.ttf
+        - asset: assets/fonts/Poppins/Montserrat-ThinItalic.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter/Montserrat-Black.ttf
+        - asset: assets/fonts/Inter/Montserrat-BlackItalic.ttf
+        - asset: assets/fonts/Inter/Montserrat-Bold.ttf
+        - asset: assets/fonts/Inter/Montserrat-BlackItalic.ttf
+        - asset: assets/fonts/Inter/Montserrat-ExtraBold.ttf
+        - asset: assets/fonts/Inter/Montserrat-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Inter/Montserrat-ExtraLight.ttf
+        - asset: assets/fonts/Inter/Montserrat-ExtraLightItalic.ttf
+        - asset: assets/fonts/Inter/Montserrat-Italic.ttf
+        - asset: assets/fonts/Inter/Montserrat-Light.ttf
+        - asset: assets/fonts/Inter/Montserrat-LightItalic.ttf
+        - asset: assets/fonts/Inter/Montserrat-Medium.ttf
+        - asset: assets/fonts/Inter/Montserrat-MediumItalic.ttf
+        - asset: assets/fonts/Inter/Montserrat-Regular.ttf
+        - asset: assets/fonts/Inter/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/Inter/Montserrat-SemiBoldItalic.ttf
+        - asset: assets/fonts/Inter/Montserrat-Thin.ttf
+        - asset: assets/fonts/Inter/Montserrat-ThinItalic.ttf
+    - family: AR CENA
+      fonts:
+        - asset: assets/fonts/ARCENA.ttf
 
