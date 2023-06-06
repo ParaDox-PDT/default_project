@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.C_111015,
       body: SafeArea(
         child: Column(
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: height * (58 / 812),
+                    height: height * (40 / 812),
                   ),
                   Row(
                     children: [
@@ -91,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(
                     width: width * (344 / 375),
-                    height: height * (384 / 812),
+                    height: height * (360 / 812),
                     child: ListView(
                       children: [
                         ListViewItem(
@@ -164,11 +165,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: width * (16 / 275),
-                  vertical: height * (26 / 812)),
+              padding:
+                  EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 10),
               width: double.infinity,
-              height: height * (255 / 812),
+              height: height * (220 / 812),
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
@@ -268,7 +268,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontFamily: "Poppins"),
                           ),
                         )),
-                  )
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              height: 5,
+              color: Colors.grey.withOpacity(0.4),
+            ),
+            Container(
+              width: double.infinity,
+              height: height * (70 / 812),
+              color: AppColors.C_18171C,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SvgPicture.asset(AppImages.home),
+                  SvgPicture.asset(AppImages.bag),
+                  Image.asset(
+                    "assets/images/shop.png",
+                    width: width * (40 / 375),
+                    height: height * (40 / 812),
+                  ),
+                  SvgPicture.asset(AppImages.love),
+                  SvgPicture.asset(AppImages.smile),
                 ],
               ),
             )

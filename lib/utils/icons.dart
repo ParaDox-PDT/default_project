@@ -15,5 +15,9 @@ class AppImages{
   static const String plus = "assets/svg/plus.svg";
   static const String minus = "assets/svg/minus.svg";
   static const String backArrow = "assets/svg/back_arrow.svg";
+  static const String home = "assets/svg/home.svg";
+  static const String smile = "assets/svg/smile.svg";
+  static const String bag = "assets/svg/bag.svg";
+  static const String love = "assets/svg/love.svg";
 
 }

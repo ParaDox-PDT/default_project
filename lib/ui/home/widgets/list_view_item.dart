@@ -5,7 +5,7 @@ import '../../../utils/colors.dart';
 import '../../../utils/icons.dart';
 
 class ListViewItem extends StatelessWidget {
-  ListViewItem({super.key, required this.img, required this.title, required this.subtitle, required this.price, required this.count, required this.onTapPlus, required this.onTapMinus});
+  const ListViewItem({super.key, required this.img, required this.title, required this.subtitle, required this.price, required this.count, required this.onTapPlus, required this.onTapMinus});
   final String img;
   final String title;
   final String subtitle;
@@ -19,7 +19,6 @@ class ListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    int sum=0;
     return Container(
       width: width * (344 / 375),
       height: height * (96 / 812),
@@ -27,7 +26,7 @@ class ListViewItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: AppColors.C_22222A),
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             horizontal: 10, vertical: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,7 +39,7 @@ class ListViewItem extends StatelessWidget {
             Stack(
               alignment: Alignment.centerRight,
               children: [
-                Container(
+                SizedBox(
                   width: width*(236/375),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +48,7 @@ class ListViewItem extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: AppColors.white,
@@ -57,7 +56,7 @@ class ListViewItem extends StatelessWidget {
                       ),
                       Text(
                         subtitle,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: AppColors.C_6A6A6E,
@@ -65,7 +64,7 @@ class ListViewItem extends StatelessWidget {
                       ),
                       Text(
                         "₽${price.toString()}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: AppColors.white,
@@ -77,7 +76,7 @@ class ListViewItem extends StatelessWidget {
                 Container(
                   width: width * (90 / 375),
                   height: height * (34 / 812),
-                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       color: AppColors.C_19191D),
@@ -92,7 +91,7 @@ class ListViewItem extends StatelessWidget {
                           child: SvgPicture.asset(AppImages.plus),
                         ),
                       ),
-                      Text(count.toString(),style: TextStyle(
+                      Text(count.toString(),style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white,
