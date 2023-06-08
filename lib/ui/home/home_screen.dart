@@ -122,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: height * (6 / 812),
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Stack(
                           children: [
@@ -163,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         airTime: "12hrs 30mins",
                                         stops: "Non Stop",
                                         clock2: "07:20",
-                                        days: "1",
+                                        days: "",
                                         price: "\$1430",
                                         img: AppImages.emirates),
                                     Reys(
@@ -205,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 )),
                             Positioned(
-                              right: 100,
+                              left: width/4,
                               bottom: 10,
                               child: Container(
                                 width: width * (152 / 375),
