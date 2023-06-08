@@ -1,11 +1,15 @@
 class AppImages{
   //png
-  static const String logo = "assets/images/logo.png";
-  static const String logo2 = "assets/images/logo2.png";
-  static const String screen1 = "assets/images/screen1.png";
-  static const String screen2 = "assets/images/screen2.png";
-  static const String screen3 = "assets/images/screen3.png";
+  static const String turk = "assets/images/turk.png";
+  static const String emirates = "assets/images/emirats.png";
+  static const String etihad = "assets/images/etihad.png";
+  static const String eziopiya = "assets/images/eziopiya.png";
   //svg
-  static  const String blueDot="assets/svg/blue_dot.svg";
-  static  const String greyDot="assets/svg/grey_dot.svg";
+  static  const String airplan="assets/svg/airplan.svg";
+  static  const String back="assets/svg/back.svg";
+  static  const String calendar="assets/svg/calendar.svg";
+  static  const String filter="assets/svg/filter.svg";
+  static  const String info="assets/svg/info.svg";
+  static  const String settings="assets/svg/settings.svg";
+
 }

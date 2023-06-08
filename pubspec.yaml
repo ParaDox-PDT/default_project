@@ -59,3 +59,13 @@ flutter:
         - asset: assets/fonts/Inter/Montserrat-SemiBold.ttf
         - asset: assets/fonts/Inter/Montserrat-Thin.ttf
         - asset: assets/fonts/Inter/Montserrat-ThinItalic.ttf
+
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand/Quicksand-Bold.otf
+        - asset: assets/fonts/Quicksand/Quicksand-BoldItalic.otf
+        - asset: assets/fonts/Quicksand/Quicksand-Italic.otf
+        - asset: assets/fonts/Quicksand/Quicksand-Light.otf
+        - asset: assets/fonts/Quicksand/Quicksand-LightItalic.otf
+        - asset: assets/fonts/Quicksand/Quicksand-Regular.otf
+        - asset: assets/fonts/Quicksand/Quicksand_Dash.otf
