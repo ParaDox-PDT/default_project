@@ -13,14 +13,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool isMale = true;
+  bool isMale = false;
   bool isFemale = false;
   Color maleColor = AppColors.C_F1F5F9;
   Color femaleColor = AppColors.white;
 
   @override
   void initState() {
-    isMale = true;
+    isMale = false;
     isFemale = false;
     super.initState();
   }
