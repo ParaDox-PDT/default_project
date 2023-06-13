@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
 
-              SizedBox(height: height*(40/812),),
+              SizedBox(height: height*(30/812),),
               Image.asset(AppImages.banner,height: height*(85/812),),
               SizedBox(height: height*(50/812),),
               const Row(
