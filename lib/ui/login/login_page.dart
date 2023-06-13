@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:n8_default_project/ui/home/login/widgets/text_field.dart';
+import 'package:n8_default_project/ui/global_widgets/global_appbar.dart';
+import 'package:n8_default_project/ui/global_widgets/global_button.dart';
+import 'package:n8_default_project/ui/global_widgets/text_field.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:n8_default_project/utils/icons.dart';
 
@@ -31,24 +33,7 @@ class _LoginPageState extends State<LoginPage> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: SvgPicture.asset(AppImages.backArrow),
-        ),
-        centerTitle: true,
-        title: const Text(
-          "Profil",
-          style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 17,
-              color: AppColors.black,
-              fontFamily: "Poppins"),
-        ),
-      ),
+      appBar: const GlobalAppBar(title: "Profile"),
       body: Column(
         children: [
           SizedBox(
@@ -102,28 +87,28 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         const GetTextField(
                             title: "Name",
-                            text: "Marvin McKinney",
+                            text: "Full Name",
                             type: TextInputType.name),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
                         const GetTextField(
                             title: "Email",
-                            text: "marvin@email.com",
+                            text: "email address",
                             type: TextInputType.emailAddress),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
                         const GetTextField(
                             title: "Date of birth",
-                            text: "11/08/1997",
+                            text: "Data of birth",
                             type: TextInputType.datetime),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
                         const GetTextField(
                             title: "Phone Number",
-                            text: "702-889-5347",
+                            text: "Phone Number",
                             type: TextInputType.phone),
                         SizedBox(
                           height: height * (16 / 812),
@@ -161,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 12, vertical: 15),
                                   border: InputBorder.none,
-                                  hintText: "#87654",
+                                  hintText: "Student ID",
                                   hintStyle: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,
@@ -340,7 +325,7 @@ class _LoginPageState extends State<LoginPage> {
                                       horizontal: 12, vertical: 15),
                                   border: InputBorder.none,
                                   hintText:
-                                      "1106 Sunrise Road Las Vegas, NV 89102",
+                                      "Address",
                                   hintStyle: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,
@@ -381,27 +366,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: height * (24 / 812),
                         ),
-                        ElevatedButton(
-                          
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.C_52B6DF,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            fixedSize: Size(double.infinity, height*(56/812))
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Update Profil",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 17,
-                                  color: AppColors.white,
-                                  fontFamily: "Poppins"),
-                            ),
-                          ),
-                        ),
+                        const GlobalButton(title: "Update Profile"),
                         SizedBox(height: height*(26/812),)
                       ],
                     ),

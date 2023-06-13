@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../utils/colors.dart';
+import '../../utils/colors.dart';
 
 class GetTextField extends StatelessWidget {
   const GetTextField({super.key, required this.title, required this.text, required this.type});
@@ -16,7 +16,7 @@ class GetTextField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 15,
               color: AppColors.C_0F172A,
@@ -42,7 +42,7 @@ class GetTextField extends StatelessWidget {
               hintStyle: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.C_0F172A,
+                  color: AppColors.C_64748B,
                   fontFamily: "Poppins",letterSpacing: 0.2),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(18),

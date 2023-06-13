@@ -15,11 +15,11 @@ class ListItems extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return ListTile(
-      contentPadding: EdgeInsets.all(0),
+      contentPadding: const EdgeInsets.all(0),
       leading: Container(
         width: width * (40 / 375),
         height: height * (40 / 375),
-        decoration: ShapeDecoration(
+        decoration: const ShapeDecoration(
             shape: CircleBorder(), color: AppColors.C_F1F5F9),
         child: Center(
           child: SvgPicture.asset(icon),
@@ -28,7 +28,7 @@ class ListItems extends StatelessWidget {
       trailing: SvgPicture.asset(AppImages.next),
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w500,
             color: AppColors.C_0F172A,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:n8_default_project/ui/home/login/login_page.dart';
+import 'package:n8_default_project/ui/about_us/about_us_screen.dart';
+import 'package:n8_default_project/ui/account/account.dart';
+import 'package:n8_default_project/ui/login/login_page.dart';
 import 'package:n8_default_project/ui/home/widgets/down_items.dart';
 import 'package:n8_default_project/ui/home/widgets/list_items.dart';
+import 'package:n8_default_project/ui/settings/settings.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:n8_default_project/utils/icons.dart';
@@ -105,21 +108,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: AppColors.C_F1F5F9,
               ),
               SizedBox(height: height*(20/812),),
-              ListItems(
-                  title: "Profile",
-                  icon: AppImages.user,
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const LoginPage();
-                    }));
-                  }),
-              SizedBox(height: height*(24/812),),
-              ListItems(title: "Account", icon: AppImages.account, onTap: (){}),
-              SizedBox(height: height*(24/812),),
-              ListItems(title: "Setting", icon: AppImages.settings, onTap: (){}),
-              SizedBox(height: height*(24/812),),
-              ListItems(title: "About", icon: AppImages.about, onTap: (){}),
+              Expanded(
+                child: ListView(
+                  children: [ListItems(
+                      title: "Profile",
+                      icon: AppImages.user,
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                              return const LoginPage();
+                            }));
+                      }),
+                    SizedBox(height: height*(24/812),),
+                    ListItems(title: "Account", icon: AppImages.account, onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                            return const AccountPage();
+                          }));
+                    }),
+                    SizedBox(height: height*(24/812),),
+                    ListItems(title: "Setting", icon: AppImages.settings, onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                            return const SettingsPage();
+                          }));
+                    }),
+                    SizedBox(height: height*(24/812),),
+                    ListItems(title: "About", icon: AppImages.about, onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                            return const AboutUsScreen();
+                          }));
+                    }),],
+                ),
+              ),
+
               SizedBox(height: height*(40/812),),
               Image.asset(AppImages.banner,height: height*(85/812),),
               SizedBox(height: height*(50/812),),

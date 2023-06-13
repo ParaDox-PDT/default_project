@@ -3,6 +3,15 @@ class AppImages{
   static const String userMedium = "assets/images/user_medium.png";
   static const String userSmall = "assets/images/user_small.png";
   static const String banner = "assets/images/banner.png";
+  static const String america = "assets/images/america.png";
+  static const String belgia = "assets/images/belgia.png";
+  static const String germany = "assets/images/germany.png";
+  static const String indonesia = "assets/images/indonesia.png";
+  static const String ireland = "assets/images/ireland.png";
+  static const String italy = "assets/images/italy.png";
+  static const String malaysia = "assets/images/malaysia.png";
+  static const String newZeland = "assets/images/new_zeland.png";
+  static const String philippines = "assets/images/philippines.png";
   //svg
   static  const String about="assets/svg/about.svg";
   static  const String account="assets/svg/account.svg";
@@ -20,4 +29,5 @@ class AppImages{
   static  const String down="assets/svg/down_arrow.svg";
   static  const String done="assets/svg/done.svg";
   static  const String empty="assets/svg/empty.svg";
+  static  const String find="assets/svg/find.svg";
 }
