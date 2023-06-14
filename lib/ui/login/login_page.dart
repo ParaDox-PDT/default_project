@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: const GlobalAppBar(title: "Profile"),
+      appBar:  GlobalAppBar(title: tr("Profile")),
       body: Column(
         children: [
           SizedBox(
@@ -85,30 +86,30 @@ class _LoginPageState extends State<LoginPage> {
                         EdgeInsets.symmetric(horizontal: width * (24 / 375)),
                     child: Column(
                       children: [
-                        const GetTextField(
-                            title: "Name",
-                            text: "Full Name",
+                         GetTextField(
+                            title: tr("Name"),
+                            text: tr("User_name"),
                             type: TextInputType.name),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
-                        const GetTextField(
-                            title: "Email",
-                            text: "email address",
+                         GetTextField(
+                            title: tr("Email"),
+                            text: tr("Email_address"),
                             type: TextInputType.emailAddress),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
-                        const GetTextField(
-                            title: "Date of birth",
-                            text: "Data of birth",
+                        GetTextField(
+                            title: tr("Date_of_birth"),
+                            text: tr("Date_of_birth"),
                             type: TextInputType.datetime),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
-                        const GetTextField(
-                            title: "Phone Number",
-                            text: "Phone Number",
+                         GetTextField(
+                            title: tr("Phone_Number"),
+                            text: tr("Phone_Number"),
                             type: TextInputType.phone),
                         SizedBox(
                           height: height * (16 / 812),
@@ -116,9 +117,9 @@ class _LoginPageState extends State<LoginPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "Student ID",
-                              style: TextStyle(
+                             Text(
+                              tr("Student_ID"),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
                                   color: AppColors.C_0F172A,
@@ -146,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 12, vertical: 15),
                                   border: InputBorder.none,
-                                  hintText: "Student ID",
+                                  hintText: tr("Student_ID"),
                                   hintStyle: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,
@@ -190,9 +191,9 @@ class _LoginPageState extends State<LoginPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "Gender",
-                              style: TextStyle(
+                             Text(
+                              tr("Gender"),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
                                   color: AppColors.C_0F172A,
@@ -232,9 +233,9 @@ class _LoginPageState extends State<LoginPage> {
                                         SizedBox(
                                           width: width * (10 / 375),
                                         ),
-                                        const Text(
-                                          "Male",
-                                          style: TextStyle(
+                                         Text(
+                                          tr("Male"),
+                                          style: const TextStyle(
                                               fontFamily: "Poppins",
                                               fontSize: 15,
                                               fontWeight: FontWeight.w400,
@@ -275,9 +276,9 @@ class _LoginPageState extends State<LoginPage> {
                                         SizedBox(
                                           width: width * (10 / 375),
                                         ),
-                                        const Text(
-                                          "Female",
-                                          style: TextStyle(
+                                         Text(
+                                          tr("Female"),
+                                          style: const TextStyle(
                                               fontFamily: "Poppins",
                                               fontSize: 15,
                                               fontWeight: FontWeight.w400,
@@ -297,9 +298,9 @@ class _LoginPageState extends State<LoginPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "Address",
-                              style: TextStyle(
+                             Text(
+                              tr("Address"),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
                                   color: AppColors.C_0F172A,
@@ -325,7 +326,7 @@ class _LoginPageState extends State<LoginPage> {
                                       horizontal: 12, vertical: 15),
                                   border: InputBorder.none,
                                   hintText:
-                                      "Address",
+                                      tr("Address"),
                                   hintStyle: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,
@@ -366,7 +367,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: height * (24 / 812),
                         ),
-                        const GlobalButton(title: "Update Profile"),
+                         GlobalButton(title: tr("Update_Profile")),
                         SizedBox(height: height*(26/812),)
                       ],
                     ),

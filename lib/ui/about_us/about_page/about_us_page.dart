@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:n8_default_project/ui/global_widgets/global_appbar.dart';
 import 'package:n8_default_project/utils/colors.dart';
@@ -22,9 +23,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "About Us?",
-              style: TextStyle(
+             Text(
+              tr("About_Us?"),
+              style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
                   color: AppColors.C_0F172A,
@@ -34,9 +35,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
             SizedBox(
               height: height * (24 / 812),
             ),
-            const Text(
-              "Study is a  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tellus ut    sagittis libero augue interdum. ",
-              style: TextStyle(
+             Text(
+              tr("Lorem"),
+              style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
                   color: AppColors.C_334155,
@@ -52,9 +53,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
             SizedBox(
               height: height * (24 / 812),
             ),
-            const Text(
-              "Lorem Ipsum",
-              style: TextStyle(
+             Text(
+              tr("Ipsum"),
+              style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
                   color: AppColors.C_0F172A,
@@ -64,9 +65,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
             SizedBox(
               height: height * (18 / 812),
             ),
-            const Text(
-              "Lorem ipsum sdolor sit amet, consectetur adipiscing elit. Morbi tellus ut sagittis libero augue interdum. ",
-              style: TextStyle(
+             Text(
+              tr("about_text"),
+              style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
                   color: AppColors.C_334155,
@@ -76,9 +77,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
             SizedBox(
               height: height * (18 / 812),
             ),
-            const Text(
-              "Lorem ipsum sdolor sit amet, consectetur adipiscing elit. Morbi tellus ut sagittis libero augue interdum. ",
-              style: TextStyle(
+             Text(
+              tr("about_text"),
+              style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
                   color: AppColors.C_334155,
@@ -88,9 +89,9 @@ class _AboutUsPageState extends State<AboutUsPage> {
             SizedBox(
               height: height * (18 / 812),
             ),
-            const Text(
-              "Lorem ipsum sdolor sit amet, consectetur adipiscing elit. Morbi tellus ut sagittis libero augue interdum. ",
-              style: TextStyle(
+             Text(
+               tr("about_text"),
+              style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
                   color: AppColors.C_334155,

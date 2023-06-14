@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:n8_default_project/ui/about_us/about_page/about_us_page.dart';
 import 'package:n8_default_project/ui/global_widgets/global_appbar.dart';
@@ -16,14 +17,14 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const GlobalAppBar(title: "About Us"),
+      appBar:  GlobalAppBar(title: tr("About_Us")),
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: width * (24 / 375), vertical: height * (24 / 812)),
         child: Column(
           children: [
             GlobalListItems(
-                title: "About Us",
+                title: tr("About_Us"),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) {
@@ -33,15 +34,15 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             const Divider(
               thickness: 0.5,
             ),
-            GlobalListItems(title: "Help", onTap: () {}),
+            GlobalListItems(title: tr("Help"), onTap: () {}),
             const Divider(
               thickness: 1,
             ),
-            GlobalListItems(title: "Term and Condition", onTap: () {}),
+            GlobalListItems(title: tr("Term_and_Condition"), onTap: () {}),
             const Divider(
               thickness: 0.5,
             ),
-            GlobalListItems(title: "Data Protection", onTap: () {}),
+            GlobalListItems(title: tr("Data_Protection"), onTap: () {}),
           ],
         ),
       ),

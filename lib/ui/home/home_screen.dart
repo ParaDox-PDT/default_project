@@ -8,6 +8,7 @@ import 'package:n8_default_project/ui/settings/settings.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:n8_default_project/utils/icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,9 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: width * (8 / 375),
                   ),
-                  const Text(
-                    "Study",
-                    style: TextStyle(
+                   Text(
+                    tr("Study"),
+                    style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
                         color: AppColors.C_0F172A,
@@ -70,8 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: width * (12 / 375),
                   ),
                   RichText(
-                    text: const TextSpan(
-                        text: "Welcome\n",
+                    text:  TextSpan(
+                        text: tr("Welcome"),
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             letterSpacing: 0.2),
                         children: [
                           TextSpan(
-                            text: "Marvin McKinney",
+                            text: tr("Marvin_McKinney"),
                             style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w600,
@@ -111,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: ListView(
                   children: [ListItems(
-                      title: "Profile",
+                      title: tr("Profile"),
                       icon: AppImages.user,
                       onTap: () {
                         Navigator.push(context,
@@ -120,21 +121,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             }));
                       }),
                     SizedBox(height: height*(24/812),),
-                    ListItems(title: "Account", icon: AppImages.account, onTap: () {
+                    ListItems(title: tr("Account"), icon: AppImages.account, onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                             return const AccountPage();
                           }));
                     }),
                     SizedBox(height: height*(24/812),),
-                    ListItems(title: "Setting", icon: AppImages.settings, onTap: () {
+                    ListItems(title: tr("Setting"), icon: AppImages.settings, onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                             return const SettingsPage();
                           }));
                     }),
                     SizedBox(height: height*(24/812),),
-                    ListItems(title: "About", icon: AppImages.about, onTap: () {
+                    ListItems(title: tr("About"), icon: AppImages.about, onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                             return const AboutUsScreen();
@@ -146,14 +147,22 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: height*(30/812),),
               Image.asset(AppImages.banner,height: height*(85/812),),
               SizedBox(height: height*(50/812),),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  DownItems(title: "Privacy Policy", img: AppImages.next),
-                  DownItems(title: "Terms", img: AppImages.next),
-                  DownItems(title: "English", img: AppImages.down),
-                ],
-              ),
+               Container(
+                 height: 20,
+                 child: Expanded(
+                   child: ListView(
+                     scrollDirection: Axis.horizontal,
+                     children: [Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         DownItems(title: tr("Privacy_Policy"), img: AppImages.next),
+                         DownItems(title: tr("Terms"), img: AppImages.next),
+                         DownItems(title: tr("English"), img: AppImages.down),
+                       ],
+                     )],
+                   ),
+                 ),
+               ),
               SizedBox(height: height*(40/812),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

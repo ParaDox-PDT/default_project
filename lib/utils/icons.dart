@@ -12,6 +12,8 @@ class AppImages{
   static const String malaysia = "assets/images/malaysia.png";
   static const String newZeland = "assets/images/new_zeland.png";
   static const String philippines = "assets/images/philippines.png";
+  static const String uzbek = "assets/images/uzbek.png";
+  static const String russian = "assets/images/russian.png";
   //svg
   static  const String about="assets/svg/about.svg";
   static  const String account="assets/svg/account.svg";

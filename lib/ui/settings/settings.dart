@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:n8_default_project/ui/global_widgets/global_appbar.dart';
 import 'package:n8_default_project/ui/settings/language_page/language_screen.dart';
@@ -17,14 +18,14 @@ class _SettingsPageState extends State<SettingsPage> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const GlobalAppBar(title: "Settings"),
+      appBar:  GlobalAppBar(title: tr("Settings")),
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: width * (24 / 375), vertical: height * (24 / 812)),
         child: Column(
           children: [
             GlobalListItems(
-                title: "App language",
+                title: tr("App_language "),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) {
@@ -32,10 +33,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   }));
                 }),
             const Divider(thickness: 0.5,),
-            GlobalListItems(title: "Notification", onTap: (){}),
+            GlobalListItems(title: tr("Notification"), onTap: (){}),
             SizedBox(height: height*(8/812),),
             const Divider(thickness: 0.5,),
-            GlobalListItems(title: "Update version", onTap: (){}),
+            GlobalListItems(title: tr("Update_version"), onTap: (){}),
           ],
         ),
       ),

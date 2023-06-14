@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:n8_default_project/ui/global_widgets/global_appbar.dart';
@@ -14,19 +15,14 @@ class SelectLanguagePage extends StatefulWidget {
 }
 
 class _SelectLanguagePageState extends State<SelectLanguagePage> {
-   bool isIndonesia = false;
-   bool isPhilippines = false;
-   bool isItaly = false;
-   bool isIreland = false;
-   bool isGerman = false;
-   bool isMalaysia= false;
+   bool isRussian=false;
+   bool isUzbek=false;
    bool isAmerica = false;
-   bool isBelgia = false;
-   bool isNewZeland = false;
+
 
   @override
   void initState() {
-    selectCountry("Indonesia");
+    selectCountry("Russian");
     super.initState();
   }
 
@@ -36,7 +32,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const GlobalAppBar(title: "Choose your language"),
+      appBar:  GlobalAppBar(title: tr("Choose_your_language")),
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: width * (24 / 375), vertical: height * (24 / 812)),
@@ -59,7 +55,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                       horizontal: width * (8 / 375),
                       vertical: height * (15 / 812)),
                   border: InputBorder.none,
-                  hintText: "Search",
+                  hintText: tr("Search"),
                   hintStyle: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -106,16 +102,17 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const GetRow(
-                            title: "Indonesia", img: AppImages.indonesia),
+                         GetRow(
+                            title: tr("Russian"), img: AppImages.russian),
                         IconButton(
                             onPressed: () {
                               setState(() {
-                                selectCountry("Indonesia");
+                                selectCountry("Russian");
+                                context.setLocale(const Locale("ru", "RU"));
                               });
 
                             },
-                            icon: isIndonesia
+                            icon: isRussian
                                 ? SvgPicture.asset(AppImages.done)
                                 : SvgPicture.asset(AppImages.empty)),
                       ],
@@ -126,15 +123,16 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const GetRow(
-                            title: "Philippines", img: AppImages.philippines),
+                         GetRow(
+                            title: tr("Uzbek"), img: AppImages.uzbek),
                         IconButton(
                             onPressed: () {
                               setState(() {
-                                selectCountry("Philippines");
+                                context.setLocale(const Locale("uz", "UZ"));
+                                selectCountry("Uzbek");
                               });
                             },
-                            icon: isPhilippines
+                            icon: isUzbek
                                 ? SvgPicture.asset(AppImages.done)
                                 : SvgPicture.asset(AppImages.empty)),
                       ],
@@ -145,124 +143,15 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const GetRow(title: "Italy", img: AppImages.italy),
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                selectCountry("Italy");
-                              });
-                            },
-                            icon: isItaly
-                                ? SvgPicture.asset(AppImages.done)
-                                : SvgPicture.asset(AppImages.empty)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: height * (12 / 812)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const GetRow(title: "Ireland", img: AppImages.ireland),
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                selectCountry("Ireland");
-                              });
-                            },
-                            icon: isIreland
-                                ? SvgPicture.asset(AppImages.done)
-                                : SvgPicture.asset(AppImages.empty)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: height * (12 / 812)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const GetRow(title: "German", img: AppImages.germany),
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                selectCountry("German");
-                              });
-                            },
-                            icon: isGerman
-                                ? SvgPicture.asset(AppImages.done)
-                                : SvgPicture.asset(AppImages.empty)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: height * (12 / 812)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const GetRow(
-                            title: "Malaysia", img: AppImages.malaysia),
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                selectCountry("Malaysia");
-                              });
-                            },
-                            icon: isMalaysia
-                                ? SvgPicture.asset(AppImages.done)
-                                : SvgPicture.asset(AppImages.empty)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: height * (12 / 812)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const GetRow(title: "America", img: AppImages.america),
+                         GetRow(title: tr("English"), img: AppImages.america),
                         IconButton(
                             onPressed: () {
                               setState(() {
                                 selectCountry("America");
+                                context.setLocale(const Locale("en", "EN"));
                               });
                             },
                             icon: isAmerica
-                                ? SvgPicture.asset(AppImages.done)
-                                : SvgPicture.asset(AppImages.empty)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: height * (12 / 812)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const GetRow(title: "Belgia", img: AppImages.belgia),
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                selectCountry("Belgia");
-                              });
-                            },
-                            icon: isBelgia
-                                ? SvgPicture.asset(AppImages.done)
-                                : SvgPicture.asset(AppImages.empty)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: height * (12 / 812)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const GetRow(
-                            title: "New Zeland", img: AppImages.newZeland),
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                selectCountry("NewZeland");
-                              });
-                            },
-                            icon: isNewZeland
                                 ? SvgPicture.asset(AppImages.done)
                                 : SvgPicture.asset(AppImages.empty)),
                       ],
@@ -278,50 +167,20 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
   }
 
   void selectCountry([String? country]){
-    isIndonesia = false;
-    isPhilippines = false;
-    isItaly = false;
-    isIreland = false;
-    isGerman = false;
-    isMalaysia= false;
+    isRussian=false;
     isAmerica = false;
-    isBelgia = false;
-    isNewZeland = false;
+    isUzbek=false;
     switch(country){
-      case "Indonesia":{
-        isIndonesia=true;
-      }
-      break;
-      case "Philippines":{
-        isPhilippines=true;
-      }
-      break;
-      case "Italy":{
-        isItaly=true;
-      }
-      break;
-      case "Ireland":{
-        isIreland=true;
-      }
-      break;
-      case "German":{
-        isGerman=true;
-      }
-      break;
-      case "Malaysia":{
-        isMalaysia=true;
+      case "Russian":{
+        isRussian=true;
       }
       break;
       case "America":{
         isAmerica=true;
       }
       break;
-      case "Belgia":{
-        isBelgia=true;
-      }
-      break;
-      case "NewZeland":{
-        isNewZeland=true;
+      case "Uzbek":{
+        isUzbek=true;
       }
       break;
     }
