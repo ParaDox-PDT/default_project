@@ -1,179 +1,170 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:n8_default_project/ui/home/second_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _timer = 10;
-  late TextEditingController _controller;
-  late Timer _secontTimer;
-
+  bool changed = false;
+  bool isDark = false;
+  bool isEnglish = false;
+  bool isUzbek = true;
   @override
   void initState() {
-    _timer = 10;
-    _controller = TextEditingController();
-    _init();
+    isEnglish=false;
+    isUzbek=true;
     super.initState();
-  }
-
-  _init() {
-    _secontTimer=Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        if (_timer == 0) {
-          timer.cancel();
-          return;
-        }
-        if (mounted) {
-          setState(() => _timer--);
-        }
-      },
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: isDark ? Colors.black12 : Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
         centerTitle: true,
-        title: const Text(
-          "Kodni tasdiqlang",
+        title: Text(
+          isUzbek? "Sozlamalar":"Settings",
           style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white),
+              fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white),
         ),
+        backgroundColor: isDark ? Colors.black12 : Colors.blueAccent,
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/images/clock.png",
-              width: 200,
-              height: 200,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "${_timer.toString()} soniya",
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 30),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18), color: Colors.white),
-              child: TextField(
-                controller: _controller,
-                cursorHeight: 20,
-                inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
-                cursorWidth: 1.4,
-                cursorColor: Colors.black.withOpacity(0.2),
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                  border: InputBorder.none,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18),
-                    borderSide: const BorderSide(width: 1, color: Colors.black),
-                  ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18),
-                    borderSide: const BorderSide(
-                      width: 1,
-                      color: Colors.black,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18),
-                    borderSide: const BorderSide(
-                      width: 1,
-                      color: Colors.black,
-                    ),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18),
-                    borderSide: const BorderSide(
-                      width: 1,
-                      color: Colors.black,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            children: [
+              CircleAvatar(
+                radius: 60,
+                child: Icon(
+                  Icons.person,
+                  size: 100,
+                ),
+              ),
+              Text(
+                "ParaDox",
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: isDark ? Colors.white : Colors.black),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.info_outline,
+                  color: isDark ? Colors.grey : Colors.black,
+                ),
+                title: Text(
+                 isUzbek? "Biz haqimizda":"Aboust Us",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: isDark ? Colors.white : Colors.black),
+                ),
+                onTap: () {},
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.language,
+                  color: isDark ? Colors.grey : Colors.black,
+                ),
+                title: Text(
+                  isUzbek? "Tilni tanlang":"Change language",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: isDark ? Colors.white : Colors.black),
+                ),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                    child: Container(
+                      width: 100,
+                      height: 150,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Image.asset("assets/images/english.png"),
+                            title: Text(
+                              "English",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  color: Colors.black),
+                            ),
+                            onTap: (){
+                              setState(() {
+                                isEnglish=true;
+                                isUzbek=false;
+                                Navigator.pop(context);
+                              });
+
+                            },
+                            trailing: isEnglish?Icon(Icons.check):SizedBox(),
+                          ),
+                          ListTile(
+                            leading: Image.asset("assets/images/uzbek.png"),
+                            title: Text(
+                              "Uzbek",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  color: Colors.black),
+                            ),
+                            onTap: (){
+                              setState(() {
+                                isEnglish=false;
+                                isUzbek=true;
+                              });
+                              Navigator.pop(context);
+                            },
+                            trailing: isUzbek?Icon(Icons.check):SizedBox(),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          border: Border.all(width: 1, color: Colors.black)),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            _timer > 0
-                ? ElevatedButton(
-                    onPressed: () {
-                      if (_controller.text.isNotEmpty) {
-                        _secontTimer.cancel();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const SecondScreen();
-                            },
-                          ),
-                        );
-                      }
-                    },
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    child: const Text(
-                      "Confirm code",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white),
-                    ),
-                  )
-                : Column(
-                    children: [
-                      const Text(
-                        "Vaqt tugadi,qaytadan urinib ko'ring!",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.red,
-                            fontSize: 24),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            setState(() {
-                              _timer=10;
-                              _init();
-                              _controller.text='';
-                            });
-                          },
-                          child: const Text(
-                            "Kodni qaytadan kiriting",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.purple),
-                          ))
-                    ],
-                  )
-          ],
+              Divider(
+                thickness: 1,
+                color: isDark ? Colors.white : Colors.grey,
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.mode_night_rounded,
+                  color: isDark ? Colors.grey : Colors.black,
+                ),
+                title: Text(
+                 isUzbek? "Mavzuni tanlang":"Choose theme",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: isDark ? Colors.white : Colors.black),
+                ),
+                trailing: Switch(
+                  onChanged: (value) => setState(() {
+                    changed = !changed;
+                    isDark = !isDark;
+                  }),
+                  value: changed,
+                ),
+              ),
+              Divider(
+                thickness: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );
