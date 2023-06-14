@@ -27,7 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
             GlobalListItems(
                 title: tr("App_language "),
                 onTap: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (BuildContext context) {
                     return const SelectLanguagePage();
                   }));

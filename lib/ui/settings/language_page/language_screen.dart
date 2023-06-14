@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:n8_default_project/ui/global_widgets/global_appbar.dart';
 import 'package:n8_default_project/ui/settings/language_page/widgets/get_row.dart';
+import 'package:n8_default_project/ui/settings/settings.dart';
 import 'package:n8_default_project/utils/icons.dart';
 
 import '../../../utils/colors.dart';
@@ -15,10 +15,9 @@ class SelectLanguagePage extends StatefulWidget {
 }
 
 class _SelectLanguagePageState extends State<SelectLanguagePage> {
-   bool isRussian=false;
-   bool isUzbek=false;
-   bool isAmerica = false;
-
+  bool isRussian = false;
+  bool isUzbek = false;
+  bool isAmerica = false;
 
   @override
   void initState() {
@@ -28,11 +27,30 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar:  GlobalAppBar(title: tr("Choose_your_language")),
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
+              return const SettingsPage();
+            }));
+          },
+          icon: SvgPicture.asset(AppImages.backArrow),
+        ),
+        centerTitle: true,
+        title: Text(
+          tr("Choose_your_language"),
+          style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 17,
+              color: AppColors.black,
+              fontFamily: "Poppins"),
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: width * (24 / 375), vertical: height * (24 / 812)),
@@ -102,15 +120,13 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         GetRow(
-                            title: tr("Russian"), img: AppImages.russian),
+                        GetRow(title: tr("Russian"), img: AppImages.russian),
                         IconButton(
                             onPressed: () {
                               setState(() {
                                 selectCountry("Russian");
                                 context.setLocale(const Locale("ru", "RU"));
                               });
-
                             },
                             icon: isRussian
                                 ? SvgPicture.asset(AppImages.done)
@@ -123,8 +139,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         GetRow(
-                            title: tr("Uzbek"), img: AppImages.uzbek),
+                        GetRow(title: tr("Uzbek"), img: AppImages.uzbek),
                         IconButton(
                             onPressed: () {
                               setState(() {
@@ -143,7 +158,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         GetRow(title: tr("English"), img: AppImages.america),
+                        GetRow(title: tr("English"), img: AppImages.america),
                         IconButton(
                             onPressed: () {
                               setState(() {
@@ -166,23 +181,26 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
     );
   }
 
-  void selectCountry([String? country]){
-    isRussian=false;
+  void selectCountry([String? country]) {
+    isRussian = false;
     isAmerica = false;
-    isUzbek=false;
-    switch(country){
-      case "Russian":{
-        isRussian=true;
-      }
-      break;
-      case "America":{
-        isAmerica=true;
-      }
-      break;
-      case "Uzbek":{
-        isUzbek=true;
-      }
-      break;
+    isUzbek = false;
+    switch (country) {
+      case "Russian":
+        {
+          isRussian = true;
+        }
+        break;
+      case "America":
+        {
+          isAmerica = true;
+        }
+        break;
+      case "Uzbek":
+        {
+          isUzbek = true;
+        }
+        break;
     }
   }
 }
