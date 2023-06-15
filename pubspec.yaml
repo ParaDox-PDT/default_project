@@ -18,6 +18,8 @@ dependencies:
   flutter_svg: ^2.0.6
   flutter_screenutil: ^5.8.4
   shared_preferences: ^2.1.2
+  easy_localization: ^3.0.2
+  mask_text_input_formatter: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +38,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/food/
     - assets/svg/
     - assets/translations/
 
@@ -61,3 +62,15 @@ flutter:
         - asset: assets/fonts/Inter/Montserrat-SemiBold.ttf
         - asset: assets/fonts/Inter/Montserrat-Thin.ttf
         - asset: assets/fonts/Inter/Montserrat-ThinItalic.ttf
+
+    - family: SF PRO
+      fonts:
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-Black.otf
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-Bold.otf
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-Heavy.otf
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-Light.otf
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-Medium.otf
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-Regular.otf
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-SemiBold.otf
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-Thin.otf
+        - asset: assets/fonts/SF_PRO/SF-Pro-Rounded-Ultralight.otf

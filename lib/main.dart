@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:n8_default_project/ui/home/home_screen.dart';
-import 'package:n8_default_project/ui/home/second_screen.dart';
+import 'package:n8_default_project/local/storage_repository.dart';
+import 'package:n8_default_project/ui/login/login_screen.dart';
 
-Future<void> main() async{
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await StorageRepository.getInstance();
+
   runApp(const MyApp());
 }
 
@@ -15,12 +19,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        useMaterial3: false,
       ),
-      themeMode: ThemeMode.dark,
-      home: HomeScreen(),
+      home: LoginScreen(),
     );
   }
 }
-
