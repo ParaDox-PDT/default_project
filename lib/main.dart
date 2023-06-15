@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:n8_default_project/ui/home/home_screen.dart';
 import 'package:n8_default_project/ui/home/second_screen.dart';
 
-void main() {
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       themeMode: ThemeMode.dark,
-      home: SecondScreen(),
+      home: HomeScreen(),
     );
   }
 }
