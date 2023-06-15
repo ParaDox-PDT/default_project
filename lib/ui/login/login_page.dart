@@ -2,8 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:n8_default_project/local/storage_repository.dart';
 import 'package:n8_default_project/ui/global_widgets/global_appbar.dart';
-import 'package:n8_default_project/ui/global_widgets/global_button.dart';
+
 import 'package:n8_default_project/ui/global_widgets/text_field.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:n8_default_project/utils/icons.dart';
@@ -20,11 +21,37 @@ class _LoginPageState extends State<LoginPage> {
   bool isFemale = false;
   Color maleColor = AppColors.C_F1F5F9;
   Color femaleColor = AppColors.white;
+  String name="";
+  String email="";
+  String dateOfBirth="";
+  String phoneNum="";
+  String id="";
+  String address="";
+
+  final TextEditingController _nameController=TextEditingController();
+  final TextEditingController _emailController=TextEditingController();
+  final TextEditingController _dataController=TextEditingController();
+  final TextEditingController _phoneController=TextEditingController();
+  final TextEditingController _idController=TextEditingController();
+  final TextEditingController _addressController=TextEditingController();
+
+  Future<void> _init()async{
+    setState(() {
+      name=StorageRepository.getString("name");
+      email=StorageRepository.getString("email") ;
+      dateOfBirth=StorageRepository.getString("data_of_birth") ;
+      phoneNum=StorageRepository.getString("phone_number") ;
+      id=StorageRepository.getString("student_id") ;
+      address=StorageRepository.getString("address") ;
+      isMale=StorageRepository.getBool("is_male");
+      isFemale=StorageRepository.getBool("is_female");
+    });
+  }
+
 
   @override
   void initState() {
-    isMale = false;
-    isFemale = false;
+    _init();
     super.initState();
   }
 
@@ -87,29 +114,33 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: [
                          GetTextField(
+                           controller: _nameController,
                             title: tr("Name"),
-                            text: tr("User_name"),
+                            text: name==""?tr("User_name"):name,
                             type: TextInputType.name),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
                          GetTextField(
+                           controller: _emailController,
                             title: tr("Email"),
-                            text: tr("Email_address"),
+                            text: email==""?tr("Email"):email,
                             type: TextInputType.emailAddress),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
                         GetTextField(
+                          controller: _dataController,
                             title: tr("Date_of_birth"),
-                            text: tr("Date_of_birth"),
+                            text: dateOfBirth==""?tr("Data_of_birth"):dateOfBirth,
                             type: TextInputType.datetime),
                         SizedBox(
                           height: height * (16 / 812),
                         ),
                          GetTextField(
+                           controller: _phoneController,
                             title: tr("Phone_Number"),
-                            text: tr("Phone_Number"),
+                            text: phoneNum==""?tr("Phone_Number"):phoneNum,
                             type: TextInputType.phone),
                         SizedBox(
                           height: height * (16 / 812),
@@ -134,6 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(18),
                                   color: AppColors.C_CBD5E1.withOpacity(0.4)),
                               child: TextField(
+                                controller: _idController,
                                 cursorHeight: 20,
                                 cursorWidth: 1.4,
                                 cursorColor: Colors.black.withOpacity(0.2),
@@ -147,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 12, vertical: 15),
                                   border: InputBorder.none,
-                                  hintText: tr("Student_ID"),
+                                  hintText:  id==""?tr("Student_ID"):id,
                                   hintStyle: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,
@@ -220,8 +252,10 @@ class _LoginPageState extends State<LoginPage> {
                                         IconButton(
                                           onPressed: () {
                                             setState(() {
-                                              isMale = true;
-                                              isFemale = false;
+                                              _saverBool("is_male", true);
+                                              _saverBool("is_female", false);
+                                              isFemale=false;
+                                              isMale=true;
                                               maleColor = AppColors.C_F1F5F9;
                                               femaleColor = AppColors.white;
                                             });
@@ -263,8 +297,10 @@ class _LoginPageState extends State<LoginPage> {
                                         IconButton(
                                           onPressed: () {
                                             setState(() {
-                                              isFemale = true;
-                                              isMale = false;
+                                              _saverBool("is_male", false);
+                                              _saverBool("is_female", true);
+                                              isFemale=true;
+                                              isMale=false;
                                               femaleColor = AppColors.C_F1F5F9;
                                               maleColor = AppColors.white;
                                             });
@@ -315,6 +351,7 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(18),
                                   color: AppColors.C_F1F5F9.withOpacity(0.4)),
                               child: TextField(
+                                controller: _addressController,
                                 cursorHeight: 20,
                                 cursorWidth: 1.4,
                                 cursorColor: Colors.black.withOpacity(0.2),
@@ -326,7 +363,7 @@ class _LoginPageState extends State<LoginPage> {
                                       horizontal: 12, vertical: 15),
                                   border: InputBorder.none,
                                   hintText:
-                                      tr("Address"),
+                                  address==""?tr("Address"):address,
                                   hintStyle: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400,
@@ -367,7 +404,35 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: height * (24 / 812),
                         ),
-                         GlobalButton(title: tr("Update_Profile")),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _saver("name", _nameController.text);
+                              _saver("email", _emailController.text);
+                              _saver("data_of_birth", _dataController.text);
+                              _saver("phone_number", _phoneController.text);
+                              _saver("student_id", _idController.text);
+                              _saver("address", _addressController.text);
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.C_52B6DF,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              fixedSize: Size(double.infinity, height*(56/812))
+                          ),
+                          child: Center(
+                            child: Text(
+                              tr("Update_Profile"),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 17,
+                                  color: AppColors.white,
+                                  fontFamily: "Poppins"),
+                            ),
+                          ),
+                        ),
                         SizedBox(height: height*(26/812),)
                       ],
                     ),
@@ -379,5 +444,13 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  _saver(String name,String value)async{
+    await StorageRepository.putString(name, value);
+  }
+
+  _saverBool(String name,bool value)async{
+    await StorageRepository.putBool(name, value);
   }
 }

@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:n8_default_project/local/storage_repository.dart';
 import 'package:n8_default_project/ui/home/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await StorageRepository.getInstance();
 
   runApp(
     EasyLocalization(

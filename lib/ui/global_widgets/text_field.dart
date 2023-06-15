@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
 
 class GetTextField extends StatelessWidget {
-  const GetTextField({super.key, required this.title, required this.text, required this.type});
+  const GetTextField({super.key, required this.title, required this.text, required this.type, required this.controller});
   final String title;
   final String text;
   final TextInputType type;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class GetTextField extends StatelessWidget {
         Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(18),color: AppColors.C_F1F5F9.withOpacity(0.4)),
           child: TextField(
+            controller: controller,
             cursorHeight: 20,
             cursorWidth: 1.4,
             cursorColor:Colors.black.withOpacity(0.2),
