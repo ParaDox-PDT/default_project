@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:n8_default_project/local/storage_repository.dart';
+import 'package:n8_default_project/models/login_model.dart';
 import 'package:n8_default_project/ui/global_widgets/global_text_field.dart';
+import 'package:n8_default_project/ui/home/home_screen.dart';
 import 'package:n8_default_project/ui/login/widgets/conteiner.dart';
 import 'package:n8_default_project/ui/sign_up/sign_up_screen.dart';
 import 'package:n8_default_project/utils/colors.dart';
@@ -13,13 +16,38 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late LoginModel loginModel;
   bool isOn = true;
+
+  Future<void> saveLogin(String key, String value) async {
+    await StorageRepository.putString(key, value);
+  }
+
+  Future<void> saveIsLogin(String key,bool value)async{
+    await StorageRepository.putBool(key, value);
+  }
+
+  @override
+  void initState() {
+    loginModel = LoginModel(
+        password: StorageRepository.getString("login_password"),
+        email: StorageRepository.getString("login_email"));
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.C_1317DD.withOpacity(0.69),
       body: SafeArea(
         child: SizedBox(
@@ -33,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * (30 / 666),
                 ),
-                Text(
+                const Text(
                   "LOGIN",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -44,31 +72,42 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * (16 / 666),
                 ),
-                GlobalTextField(
-                    title: "Email",
-                    img: AppImages.email,
-                    inputType: TextInputType.emailAddress),
-                SizedBox(
-                  height: height * (8 / 666),
-                ),
-                GlobalTextField(
-                  title: "Password",
-                  img: AppImages.lock,
-                  inputType: TextInputType.visiblePassword,
-                  isPassword: true,
-                ),
-                SizedBox(
-                  height: height * (12 / 666),
-                ),
+                Expanded(child: ListView(
+                  children: [
+                    GlobalTextField(
+                        onChanged: (value) {
+                          loginModel = loginModel.copyWith(email: value);
+                        },
+                        title: "Email",
+                        img: AppImages.email,
+                        inputType: TextInputType.emailAddress),
+                    SizedBox(
+                      height: height * (8 / 666),
+                    ),
+                    GlobalTextField(
+                      onChanged: (value) {
+                        loginModel = loginModel.copyWith(password: value);
+                      },
+                      title: "Password",
+                      img: AppImages.lock,
+                      inputType: TextInputType.visiblePassword,
+                      isPassword: true,
+                    ),
+                    SizedBox(
+                      height: height * (12 / 666),
+                    ),
+                  ],
+                )),
                 Row(
                   children: [
                     Switch(
                       value: isOn,
-                      onChanged: (value) => setState(() {
-                        isOn = !isOn;
-                      }),
+                      onChanged: (value) =>
+                          setState(() {
+                            isOn = !isOn;
+                          }),
                     ),
-                    Text(
+                    const Text(
                       "Remember Me",
                       style: TextStyle(
                           fontFamily: "SF PRO",
@@ -76,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.white),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text("Forgot Password?",
                         style: TextStyle(
                             fontFamily: "SF PRO",
@@ -88,23 +127,40 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * (18 / 666),
                 ),
-                Container(
+                SizedBox(
                   width: width * (204 / 307.5),
                   height: height * (40 / 666),
                   child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
+                      onPressed: () {
+                        saveLogin("login_password", loginModel.password);
+                        saveLogin("login_email", loginModel.email);
+
+                        if (StorageRepository.getString("login_password").toString() ==
+                            StorageRepository.getString("password").toString() &&
+                            StorageRepository.getString("email").toString() ==
+                                StorageRepository.getString("login_email").toString()){
+                          saveIsLogin("is_login",true);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                            return const HomeScreen();
+                          }));
+                        }
+                        else{
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("Login xato!")));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100))),
+                      child: const Text(
                         "LOGIN",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                             color: AppColors.black,
                             fontFamily: "SF PRO"),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100)))),
+                      )),
                 ),
                 SizedBox(
                   height: height * (18 / 666),
@@ -120,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * (6 / 666),
                 ),
-                Text(
+                const Text(
                   "Log in with",
                   style: TextStyle(
                       fontFamily: "SF PRO",
@@ -131,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: height * (18 / 666),
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     LoginWith(img: AppImages.google),
@@ -154,11 +210,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: () {
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
-                            return SignUpScreen();
-                          }));
+                                return const SignUpScreen();
+                              }));
                         },
-                        child: Text(
-                          "Registr now",
+                        child: const Text(
+                          "Register now",
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12,

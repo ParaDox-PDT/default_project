@@ -9,13 +9,14 @@ class GlobalTextField extends StatefulWidget {
     required this.title,
     required this.img,
     this.isPassword = false,
-    required this.inputType,
+    required this.inputType, required this.onChanged,
   });
 
   final String title;
   final String img;
   final bool isPassword;
   final TextInputType inputType;
+  final ValueChanged<String> onChanged;
 
   // final ValueChanged<String> onChanged;
 
@@ -50,7 +51,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           ]),
       child: TextField(
         controller: controller,
-        // onChanged: widget.onChanged,
+        onChanged: widget.onChanged,
         cursorColor: AppColors.black,
         cursorHeight: 15,
         keyboardType: widget.inputType,
