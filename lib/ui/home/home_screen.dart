@@ -12,11 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Future<void> clear(String key)async{
-    await StorageRepository.putString(key, "`");
-  }
-
-  Future<void> saveIsLogin(String key)async{
+  Future<void> saveIsLogin(String key) async {
     await StorageRepository.putBool(key, false);
   }
 
@@ -53,20 +49,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.grey,
                     fontFamily: "SF PRO"),
               ),
-              const SizedBox(height: 100,),
-              const SizedBox(height: 100,),
+              const SizedBox(
+                height: 100,
+              ),
+              const SizedBox(
+                height: 100,
+              ),
               SizedBox(
                 width: width * (204 / 307.5),
                 height: height * (40 / 666),
                 child: ElevatedButton(
                     onPressed: () {
-                      clear("first_name");
-                      clear("last_name");
-                      clear("confirm_password");
-                      clear("email");
-                      clear("password");
-                      saveIsLogin("is_login");
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                      StorageRepository.deleteString("first_name");
+                      StorageRepository.deleteString("last_name");
+                      StorageRepository.deleteString("confirm_password");
+                      StorageRepository.deleteString("email");
+                      StorageRepository.deleteString("password");
+                      StorageRepository.deleteString("is_login");
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
                         return const LoginScreen();
                       }));
                     },
