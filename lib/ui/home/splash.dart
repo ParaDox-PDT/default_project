@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:n8_default_project/ui/home/home_screen.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:n8_default_project/utils/icons.dart';
 
-import '../on_boarding_screen/on_boarding.dart';
-
-class SplashScreen2 extends StatelessWidget {
-  const SplashScreen2({Key? key}) : super(key: key);
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +14,13 @@ class SplashScreen2 extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.white,
+        backgroundColor: Colors.white,
         toolbarHeight: 0,
       ),
       body: Center(
-        child: Image.asset(AppImages.logo2,width: width*(188/375),height: height*(60/812),),
+        child: Text("My Last App",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w600,color: Colors.black),),
       ),
     );
   }
@@ -32,7 +31,7 @@ class SplashScreen2 extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (BuildContext context) {
-            return  OnBoardingScreen();
+            return  const HomeScreen();
           },
         ),
       );
