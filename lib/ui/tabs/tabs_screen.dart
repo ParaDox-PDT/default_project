@@ -34,6 +34,8 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
         body: Stack(
       children: [
@@ -92,13 +94,23 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
         ),
         Positioned(
-            left: 0,
-            right: 0,
+            left: (width - 64) / 2,
+            right: (width - 64) / 2,
             bottom: 70,
-            child: FloatingActionButton(
-              backgroundColor: AppColors.C_8687E7,
-              onPressed: () {},
-              child: SvgPicture.asset(AppImages.add),
+            child: SizedBox(
+              width: 64,
+              height: 64,
+              child: FloatingActionButton(
+                backgroundColor: AppColors.C_8687E7,
+                onPressed: () {},
+                child: SvgPicture.asset(
+                  AppImages.add,
+                  // colorFilter: ColorFilter.mode(
+                  //   AppColors.C_8687E7,
+                  //   BlendMode.srcIn,
+                  // ),
+                ),
+              ),
             ))
       ],
     ));
