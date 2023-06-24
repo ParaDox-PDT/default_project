@@ -44,7 +44,19 @@ class ToDoModel {
     if (description.isEmpty) return "Ta'rif kiritilmagan";
     if (category.categoryName.isEmpty) return "Kategoriya tanlang";
     if (expiredDate.isEmpty) return "ToDo muddati xato";
-
     return "";
+  }
+
+  @override
+  String toString() {
+    return '''
+      expiredDate: $expiredDate,
+      description: $description 
+      title: $title
+      createdAt: $createdAt 
+      category: $category 
+      isDone: $isDone 
+      toDoImportance: $toDoImportance 
+    ''';
   }
 }

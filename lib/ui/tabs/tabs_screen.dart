@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:n8_default_project/ui/router.dart';
 import 'package:n8_default_project/ui/tabs/calendar/calendar_screen.dart';
 import 'package:n8_default_project/ui/tabs/focus/focus_screen.dart';
 import 'package:n8_default_project/ui/tabs/home/home_screen.dart';
@@ -102,7 +103,9 @@ class _TabsScreenState extends State<TabsScreen> {
               height: 64,
               child: FloatingActionButton(
                 backgroundColor: AppColors.C_8687E7,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteNames.addToDoScreen);
+                },
                 child: SvgPicture.asset(
                   AppImages.add,
                   // colorFilter: ColorFilter.mode(
