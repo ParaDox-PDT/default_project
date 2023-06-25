@@ -46,6 +46,23 @@ class _TabsScreenState extends State<TabsScreen> {
     _screens = [
       HomeScreen(
         toDos: toDos,
+        onCancelPressed: (index) {
+          ToDoModel toDoModel = toDos[index];
+          toDoModel = toDoModel.copyWith(status: ToDoStatus.canceled);
+          setState(() {
+            toDos[index] = toDoModel;
+            _updateHomeScreen();
+          });
+        },
+        onDonePressed: (index) {
+          print("INDEX COMING:$index");
+          ToDoModel toDoModel = toDos[index];
+          toDoModel = toDoModel.copyWith(status: ToDoStatus.completed);
+          setState(() {
+            toDos[index] = toDoModel;
+            _updateHomeScreen();
+          });
+        },
       ),
       CalendarScreen(),
       FocusScreen(),
@@ -56,7 +73,11 @@ class _TabsScreenState extends State<TabsScreen> {
   }
 
   _updateHomeScreen() {
-    _screens[0] = HomeScreen(toDos: toDos);
+    _screens[0] = HomeScreen(
+      toDos: toDos,
+      onCancelPressed: (index) {},
+      onDonePressed: (index) {},
+    );
   }
 
   @override

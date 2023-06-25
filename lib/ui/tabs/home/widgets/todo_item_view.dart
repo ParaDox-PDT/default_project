@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:n8_default_project/models/todo_importance.dart';
 import 'package:n8_default_project/models/todo_model.dart';
+import 'package:n8_default_project/models/todo_status.dart';
 
 class ToDoItemView extends StatelessWidget {
   const ToDoItemView({
@@ -84,23 +85,33 @@ class ToDoItemView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                    backgroundColor: Theme.of(context).canvasColor),
-                onPressed: onCancelTap,
-                child: Text(
-                  "Cancel",
-                  style: Theme.of(context).textTheme.titleMedium,
+              Visibility(
+                visible: (toDoModel.status!=ToDoStatus.canceled)&&(toDoModel.status!=ToDoStatus.completed),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: Theme.of(context).canvasColor),
+                  onPressed: onCancelTap,
+                  child: Text(
+                    "Cancel",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.green,
-                ),
-                onPressed: onSelect,
-                child: Text(
-                  "Done",
-                  style: Theme.of(context).textTheme.titleMedium,
+              Text(
+                toDoModel.status.name.toUpperCase(),
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              Visibility(
+                visible: toDoModel.status!=ToDoStatus.completed,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  onPressed: onSelect,
+                  child: Text(
+                    "Done",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
               ),
             ],

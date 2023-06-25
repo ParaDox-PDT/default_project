@@ -4,9 +4,16 @@ import 'package:n8_default_project/ui/tabs/home/widgets/todo_item_view.dart';
 import '../../../models/todo_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, required this.toDos}) : super(key: key);
+  const HomeScreen({
+    Key? key,
+    required this.toDos,
+    required this.onDonePressed,
+    required this.onCancelPressed,
+  }) : super(key: key);
 
   final List<ToDoModel> toDos;
+  final ValueChanged<int> onDonePressed;
+  final ValueChanged<int> onCancelPressed;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,8 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ToDoModel toDoModel = widget.toDos[index];
             return ToDoItemView(
               toDoModel: toDoModel,
-              onSelect: () {},
-              onCancelTap: () {},
+              onSelect: () {
+                widget.onDonePressed.call(index);
+              },
+              onCancelTap: () {
+                widget.onCancelPressed.call(index);
+              },
             );
           })
         ],
