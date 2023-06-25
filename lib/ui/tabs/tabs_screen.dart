@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:n8_default_project/data/local/local_database.dart';
+import 'package:n8_default_project/models/todo_model_for_sql/todo_model_sql.dart';
 import 'package:n8_default_project/ui/router.dart';
 import 'package:n8_default_project/ui/tabs/calendar/calendar_screen.dart';
 import 'package:n8_default_project/ui/tabs/focus/focus_screen.dart';
@@ -25,59 +27,16 @@ class _TabsScreenState extends State<TabsScreen> {
 
   List<Widget> _screens = [];
 
-  List<ToDoModel> toDos = [
-    ToDoModel(
-      expiredDate: "2023-08-23 19:30",
-      description: "Desc",
-      title: "Fitnesga borishim kk",
-      createdAt: "",
-      category: ToDoCategory(
-        id: 1,
-        categoryName: "Sport",
-        iconPath: AppImages.sport,
-        colorInString: "FF8080",
-      ),
-      status: ToDoStatus.inProgress,
-    ),
-  ];
-
   @override
   void initState() {
     _screens = [
-      HomeScreen(
-        toDos: toDos,
-        onCancelPressed: (index) {
-          ToDoModel toDoModel = toDos[index];
-          toDoModel = toDoModel.copyWith(status: ToDoStatus.canceled);
-          setState(() {
-            toDos[index] = toDoModel;
-            _updateHomeScreen();
-          });
-        },
-        onDonePressed: (index) {
-          print("INDEX COMING:$index");
-          ToDoModel toDoModel = toDos[index];
-          toDoModel = toDoModel.copyWith(status: ToDoStatus.completed);
-          setState(() {
-            toDos[index] = toDoModel;
-            _updateHomeScreen();
-          });
-        },
-      ),
+      HomeScreen(),
       CalendarScreen(),
       FocusScreen(),
       ProfileScreen(),
     ];
 
     super.initState();
-  }
-
-  _updateHomeScreen() {
-    _screens[0] = HomeScreen(
-      toDos: toDos,
-      onCancelPressed: (index) {},
-      onDonePressed: (index) {},
-    );
   }
 
   @override
@@ -154,11 +113,20 @@ class _TabsScreenState extends State<TabsScreen> {
                   Navigator.pushNamed(
                     context,
                     RouteNames.addToDoScreen,
-                    arguments: (toDo) {
-                      setState(() {
-                        toDos.add(toDo);
-                        _updateHomeScreen();
-                      });
+                    arguments: (toDo) async {
+                      ToDoModel toDoModel = toDo as ToDoModel;
+                      ToDoModelSql newToDo = await LocalDatabase.insertTodo(
+                        ToDoModelSql(
+                          expiredDate: toDoModel.expiredDate,
+                          description: toDoModel.description,
+                          title: toDoModel.title,
+                          createdAt: toDoModel.createdAt,
+                          categoryId: toDoModel.category.id,
+                          status: toDoModel.status.index,
+                          toDoImportance: toDoModel.toDoImportance.index,
+                        ),
+                      );
+                      print("ADDED SUCCESSFULLY:${newToDo.id}");
                     },
                   );
                 },
