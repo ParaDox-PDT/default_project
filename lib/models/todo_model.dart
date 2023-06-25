@@ -1,5 +1,6 @@
 import 'package:n8_default_project/models/todo_category.dart';
 import 'package:n8_default_project/models/todo_importance.dart';
+import 'package:n8_default_project/models/todo_status.dart';
 
 class ToDoModel {
   final String title;
@@ -7,17 +8,18 @@ class ToDoModel {
   final ToDoCategory category;
   final String createdAt;
   final String expiredDate;
-  final bool isDone;
+  final ToDoStatus status;
   final ToDoImportance toDoImportance;
 
-  ToDoModel(
-      {required this.expiredDate,
-      required this.description,
-      required this.title,
-      required this.createdAt,
-      required this.category,
-      required this.isDone,
-      this.toDoImportance = ToDoImportance.normal});
+  ToDoModel({
+    required this.expiredDate,
+    required this.description,
+    required this.title,
+    required this.createdAt,
+    required this.category,
+    required this.status,
+    this.toDoImportance = ToDoImportance.normal,
+  });
 
   ToDoModel copyWith({
     String? title,
@@ -25,7 +27,7 @@ class ToDoModel {
     ToDoCategory? category,
     String? createdAt,
     String? expiredDate,
-    bool? isDone,
+    ToDoStatus? status,
     ToDoImportance? toDoImportance,
   }) {
     return ToDoModel(
@@ -34,7 +36,7 @@ class ToDoModel {
       title: title ?? this.title,
       createdAt: createdAt ?? this.createdAt,
       category: category ?? this.category,
-      isDone: isDone ?? this.isDone,
+      status: status ?? this.status,
       toDoImportance: toDoImportance ?? this.toDoImportance,
     );
   }
@@ -55,7 +57,7 @@ class ToDoModel {
       title: $title
       createdAt: $createdAt 
       category: $category 
-      isDone: $isDone 
+      isDone: $status 
       toDoImportance: $toDoImportance 
     ''';
   }

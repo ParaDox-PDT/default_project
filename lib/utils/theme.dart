@@ -14,6 +14,8 @@ class AppTheme {
         statusBarBrightness: Brightness.dark,
       ),
     ),
+    cardColor: AppColors.C_363636,
+    canvasColor: AppColors.C_8687E7,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.C_121212),
     textTheme: TextTheme(
       //display
@@ -88,7 +90,7 @@ class AppTheme {
           fontWeight: FontWeight.w500,
           fontFamily: "Poppins"),
       bodyMedium: TextStyle(
-          color: AppColors.textColor,
+          color: AppColors.C_AFAFAF,
           fontSize: 14.sp,
           fontWeight: FontWeight.w500,
           fontFamily: "Poppins"),

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:n8_default_project/data/app_repository.dart';
 import 'package:n8_default_project/models/todo_category.dart';
 import 'package:n8_default_project/models/todo_importance.dart';
+import 'package:n8_default_project/models/todo_status.dart';
 import 'package:n8_default_project/ui/add_todo/widgest/category_item.dart';
 import 'package:n8_default_project/ui/add_todo/widgest/select_importance.dart';
 import 'package:n8_default_project/ui/widgets/global_button.dart';
@@ -12,7 +13,9 @@ import 'package:n8_default_project/utils/ui_itils.dart';
 import '../../models/todo_model.dart';
 
 class AddToDoScreen extends StatefulWidget {
-  const AddToDoScreen({Key? key}) : super(key: key);
+  const AddToDoScreen({Key? key, required this.onAdded}) : super(key: key);
+
+  final ValueChanged<ToDoModel> onAdded;
 
   @override
   State<AddToDoScreen> createState() => _AddToDoScreenState();
@@ -37,7 +40,7 @@ class _AddToDoScreenState extends State<AddToDoScreen> {
       iconPath: "",
       colorInString: "",
     ),
-    isDone: false,
+    status: ToDoStatus.inProgress,
   );
 
   @override
@@ -154,7 +157,8 @@ class _AddToDoScreenState extends State<AddToDoScreen> {
                 createdAt: DateTime.now().toString(),
               );
               if (toDoModel.canAddThis().isEmpty) {
-                print(toDoModel.toString());
+                widget.onAdded.call(toDoModel);
+                Navigator.pop(context);
               } else {
                 showMessage(toDoModel.canAddThis());
               }

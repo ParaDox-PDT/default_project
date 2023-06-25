@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:n8_default_project/models/todo_model.dart';
 import 'package:n8_default_project/ui/add_todo/add_todo_screen.dart';
 import 'package:n8_default_project/ui/on_boarding/on_boarding_screen.dart';
 import 'package:n8_default_project/ui/splash/splash_screen.dart';
@@ -21,7 +22,11 @@ class AppRoutes {
       case RouteNames.tabs:
         return MaterialPageRoute(builder: (context) => TabsScreen());
       case RouteNames.addToDoScreen:
-        return MaterialPageRoute(builder: (context) => AddToDoScreen());
+        return MaterialPageRoute(
+          builder: (context) => AddToDoScreen(
+            onAdded: settings.arguments as ValueChanged<ToDoModel>,
+          ),
+        );
       default:
         return MaterialPageRoute(
           builder: (context) => const Scaffold(

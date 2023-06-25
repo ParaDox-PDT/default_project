@@ -9,6 +9,10 @@ import 'package:n8_default_project/ui/tabs/profile/profile_screen.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:n8_default_project/utils/icons.dart';
 
+import '../../models/todo_category.dart';
+import '../../models/todo_model.dart';
+import '../../models/todo_status.dart';
+
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);
 
@@ -21,16 +25,38 @@ class _TabsScreenState extends State<TabsScreen> {
 
   List<Widget> _screens = [];
 
+  List<ToDoModel> toDos = [
+    ToDoModel(
+      expiredDate: "2023-08-23 19:30",
+      description: "Desc",
+      title: "Fitnesga borishim kk",
+      createdAt: "",
+      category: ToDoCategory(
+        id: 1,
+        categoryName: "Sport",
+        iconPath: AppImages.sport,
+        colorInString: "FF8080",
+      ),
+      status: ToDoStatus.inProgress,
+    ),
+  ];
+
   @override
   void initState() {
     _screens = [
-      HomeScreen(),
+      HomeScreen(
+        toDos: toDos,
+      ),
       CalendarScreen(),
       FocusScreen(),
       ProfileScreen(),
     ];
 
     super.initState();
+  }
+
+  _updateHomeScreen() {
+    _screens[0] = HomeScreen(toDos: toDos);
   }
 
   @override
@@ -104,14 +130,19 @@ class _TabsScreenState extends State<TabsScreen> {
               child: FloatingActionButton(
                 backgroundColor: AppColors.C_8687E7,
                 onPressed: () {
-                  Navigator.pushNamed(context, RouteNames.addToDoScreen);
+                  Navigator.pushNamed(
+                    context,
+                    RouteNames.addToDoScreen,
+                    arguments: (toDo) {
+                      setState(() {
+                        toDos.add(toDo);
+                        _updateHomeScreen();
+                      });
+                    },
+                  );
                 },
                 child: SvgPicture.asset(
                   AppImages.add,
-                  // colorFilter: ColorFilter.mode(
-                  //   AppColors.C_8687E7,
-                  //   BlendMode.srcIn,
-                  // ),
                 ),
               ),
             ))
