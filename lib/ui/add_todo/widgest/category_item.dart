@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:n8_default_project/models/todo_category.dart';
+import 'package:n8_default_project/models/todo_model/todo_category.dart';
 import 'package:n8_default_project/utils/colors.dart';
 
 class CategoryItem extends StatelessWidget {

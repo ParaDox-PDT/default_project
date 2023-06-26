@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:n8_default_project/data/app_repository.dart';
+import 'package:n8_default_project/models/todo_model/todo_category.dart';
+import 'package:n8_default_project/models/todo_model/todo_importance.dart';
+import 'package:n8_default_project/models/todo_model/todo_model.dart';
+import 'package:n8_default_project/models/todo_model/todo_status.dart';
+import 'package:n8_default_project/models/todo_model_for_sql/todo_model_sql.dart';
 
 showMyCustomAlertDialog(BuildContext context, String title) {
   showDialog(
@@ -148,4 +154,57 @@ showMessage(String message) {
     textColor: Colors.white,
     fontSize: 16.0,
   );
+}
+
+class ToDoUtils {
+  static ToDoCategory getCategoryById(int categoryId) {
+    return AppRepository.categories
+        .firstWhere((element) => element.id == categoryId);
+  }
+
+  static ToDoStatus getToDoStatus(int index) {
+    switch (index) {
+      case 0:
+        return ToDoStatus.completed;
+      case 1:
+        return ToDoStatus.inProgress;
+      case 2:
+        return ToDoStatus.canceled;
+      default:
+        {
+          return ToDoStatus.expired;
+        }
+    }
+  }
+
+  static ToDoImportance getToDoImportance(int index) {
+    switch (index) {
+      case 0:
+        return ToDoImportance.normal;
+      case 1:
+        return ToDoImportance.urgent;
+      default:
+        {
+          return ToDoImportance.veryUrgent;
+        }
+    }
+  }
+
+  static List<ToDoModel> castToDoSqlToDoModel(List<ToDoModelSql> allToDosSql) {
+    List<ToDoModel> toDos = [];
+    for (var element in allToDosSql) {
+      toDos.add(
+        ToDoModel(
+            id: element.id!,
+            expiredDate: element.expiredDate,
+            description: element.description,
+            title: element.title,
+            createdAt: element.createdAt,
+            category: getCategoryById(element.categoryId),
+            status: getToDoStatus(element.status),
+            toDoImportance: getToDoImportance(element.toDoImportance)),
+      );
+    }
+    return toDos;
+  }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:n8_default_project/data/storage_repo/storage_repository.dart';
 import 'package:n8_default_project/ui/router.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:n8_default_project/utils/theme.dart';
+
+import 'data/local/storage_repo/storage_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

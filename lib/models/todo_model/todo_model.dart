@@ -1,6 +1,6 @@
-import 'package:n8_default_project/models/todo_category.dart';
-import 'package:n8_default_project/models/todo_importance.dart';
-import 'package:n8_default_project/models/todo_status.dart';
+import 'package:n8_default_project/models/todo_model/todo_category.dart';
+import 'package:n8_default_project/models/todo_model/todo_importance.dart';
+import 'package:n8_default_project/models/todo_model/todo_status.dart';
 
 class ToDoModel {
   final String title;
@@ -10,6 +10,7 @@ class ToDoModel {
   final String expiredDate;
   final ToDoStatus status;
   final ToDoImportance toDoImportance;
+  final int id;
 
   ToDoModel({
     required this.expiredDate,
@@ -19,6 +20,7 @@ class ToDoModel {
     required this.category,
     required this.status,
     this.toDoImportance = ToDoImportance.normal,
+    this.id = -1,
   });
 
   ToDoModel copyWith({
@@ -29,6 +31,7 @@ class ToDoModel {
     String? expiredDate,
     ToDoStatus? status,
     ToDoImportance? toDoImportance,
+    int ? id,
   }) {
     return ToDoModel(
       expiredDate: expiredDate ?? this.expiredDate,
@@ -38,6 +41,7 @@ class ToDoModel {
       category: category ?? this.category,
       status: status ?? this.status,
       toDoImportance: toDoImportance ?? this.toDoImportance,
+      id: id ?? this.id,
     );
   }
 
@@ -59,6 +63,7 @@ class ToDoModel {
       category: $category 
       isDone: $status 
       toDoImportance: $toDoImportance 
+      id: $id 
     ''';
   }
 }

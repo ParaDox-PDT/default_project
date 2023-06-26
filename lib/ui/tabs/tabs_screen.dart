@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:n8_default_project/data/local/local_database.dart';
+import 'package:n8_default_project/data/local/db/local_database.dart';
+import 'package:n8_default_project/models/todo_model/todo_status.dart';
 import 'package:n8_default_project/models/todo_model_for_sql/todo_model_sql.dart';
 import 'package:n8_default_project/ui/router.dart';
 import 'package:n8_default_project/ui/tabs/calendar/calendar_screen.dart';
@@ -11,9 +12,8 @@ import 'package:n8_default_project/ui/tabs/profile/profile_screen.dart';
 import 'package:n8_default_project/utils/colors.dart';
 import 'package:n8_default_project/utils/icons.dart';
 
-import '../../models/todo_category.dart';
-import '../../models/todo_model.dart';
-import '../../models/todo_status.dart';
+import '../../models/todo_model/todo_model.dart';
+import '../../utils/ui_itils.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);
@@ -27,12 +27,33 @@ class _TabsScreenState extends State<TabsScreen> {
 
   List<Widget> _screens = [];
 
+  List<ToDoModel> toDos = [];
+
+  _init() async {
+    List<ToDoModelSql> allToDosSql = await LocalDatabase.getAllToDos();
+    toDos = ToDoUtils.castToDoSqlToDoModel(allToDosSql);
+    _screens[0] = HomeScreen(toDos: toDos.where((element) => element.status==ToDoStatus.inProgress).toList(),  onSomethingChanged: (){
+      _init();
+    },);
+    _screens[2] = FocusScreen(toDos: toDos.where((element) => element.status!=ToDoStatus.inProgress).toList(),onSomethingChanged: (){
+      _init();
+    },);
+    setState(() {});
+    print('LENGTH:${allToDosSql.length}');
+  }
+
   @override
   void initState() {
+    _init();
     _screens = [
-      HomeScreen(),
+      HomeScreen(toDos: [],
+      onSomethingChanged: (){
+        _init();
+      },),
       CalendarScreen(),
-      FocusScreen(),
+      FocusScreen(toDos: [],onSomethingChanged: (){
+        _init();
+      },),
       ProfileScreen(),
     ];
 
@@ -80,7 +101,7 @@ class _TabsScreenState extends State<TabsScreen> {
                     isActive: currentIndex == 2,
                     icon: AppImages.focusPassive,
                     activeIcon: AppImages.focus,
-                    label: "Focus",
+                    label: "History",
                     onTap: () {
                       setState(() {
                         currentIndex = 2;
@@ -126,8 +147,9 @@ class _TabsScreenState extends State<TabsScreen> {
                           toDoImportance: toDoModel.toDoImportance.index,
                         ),
                       );
+                      _init();
                       print("ADDED SUCCESSFULLY:${newToDo.id}");
-                    },
+                    }, //ValueChanged<ToDoModel>
                   );
                 },
                 child: SvgPicture.asset(

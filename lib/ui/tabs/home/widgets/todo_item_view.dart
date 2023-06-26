@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:n8_default_project/models/todo_importance.dart';
-import 'package:n8_default_project/models/todo_model.dart';
-import 'package:n8_default_project/models/todo_status.dart';
+import 'package:n8_default_project/models/todo_model/todo_importance.dart';
+import 'package:n8_default_project/models/todo_model/todo_status.dart';
+
+import '../../../../models/todo_model/todo_model.dart';
 
 class ToDoItemView extends StatelessWidget {
   const ToDoItemView({
@@ -102,7 +103,7 @@ class ToDoItemView extends StatelessWidget {
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Visibility(
-                visible: toDoModel.status!=ToDoStatus.completed,
+                visible: (toDoModel.status!=ToDoStatus.canceled)&&(toDoModel.status!=ToDoStatus.completed),
                 child: TextButton(
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.green,

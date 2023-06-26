@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:n8_default_project/models/todo_model.dart';
 import 'package:n8_default_project/ui/add_todo/add_todo_screen.dart';
 import 'package:n8_default_project/ui/on_boarding/on_boarding_screen.dart';
 import 'package:n8_default_project/ui/splash/splash_screen.dart';
 import 'package:n8_default_project/ui/tabs/tabs_screen.dart';
+
+import '../models/todo_model/todo_model.dart';
 
 class RouteNames {
   static const String initial = "/";

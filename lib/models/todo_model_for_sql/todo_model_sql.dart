@@ -1,6 +1,6 @@
-import 'package:n8_default_project/models/todo_category.dart';
-import 'package:n8_default_project/models/todo_importance.dart';
-import 'package:n8_default_project/models/todo_status.dart';
+import 'package:n8_default_project/models/todo_model/todo_category.dart';
+import 'package:n8_default_project/models/todo_model/todo_importance.dart';
+import 'package:n8_default_project/models/todo_model/todo_status.dart';
 
 class ToDoModelFields {
   static const String id = "_id";

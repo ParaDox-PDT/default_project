@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/todo_importance.dart';
+import '../../../models/todo_model/todo_importance.dart';
 import '../../../utils/colors.dart';
 
 class SelectImportance extends StatefulWidget {

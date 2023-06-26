@@ -7,11 +7,11 @@ class LocalDatabase {
 
   LocalDatabase._init();
 
-  static Database? _database;
-
   factory LocalDatabase() {
     return getInstance;
   }
+
+  static Database? _database;
 
   Future<Database> get database async {
     if (_database != null) {
@@ -49,11 +49,44 @@ class LocalDatabase {
     // '''
     //  CREATE TABLE toDoTAble (_id INTEGER PRIMARY KEY AUTOINCREMENT, )
     // '''
+
+    // db.query(
+    //   ToDoModelFields.toDoTable,
+    //   orderBy: "${ToDoModelFields.title} ASC",
+    // );
   }
 
   static Future<ToDoModelSql> insertTodo(ToDoModelSql toDo) async {
     final db = await getInstance.database;
-    final id = await db.insert(ToDoModelFields.toDoTable, toDo.toJson());
+    final int id = await db.insert(ToDoModelFields.toDoTable, toDo.toJson());
     return toDo.copyWith(id: id);
+  }
+
+  static Future<List<ToDoModelSql>> getAllToDos() async {
+    List<ToDoModelSql> allToDos = [];
+    final db = await getInstance.database;
+    allToDos = (await db.query(ToDoModelFields.toDoTable))
+        .map((e) => ToDoModelSql.fromJson(e))
+        .toList();
+    return allToDos;
+  }
+
+  static updateToDoStatus({required int id, required int statusIndex}) async {
+    final db = await getInstance.database;
+    db.update(
+      ToDoModelFields.toDoTable,
+      {ToDoModelFields.status: statusIndex},
+      where: "${ToDoModelFields.id} = ?",
+      whereArgs: [id],
+    );
+  }
+
+  static deleteToDo(int id) async {
+    final db = await getInstance.database;
+    db.delete(
+      ToDoModelFields.toDoTable,
+      where: "${ToDoModelFields.id} = ?",
+      whereArgs: [id],
+    );
   }
 }

@@ -16,5 +16,6 @@ class AppColors {
   static const Color C_CC4173 = Color(0xFFCC4173);
   static const Color C_979797 = Color(0xFF979797);
   static const Color C_AFAFAF = Color(0xFFAFAFAF);
+  static const Color C_8875FF = Color(0xFF8875FF);
   static Color textColor = const Color(0xFFFFFFFF).withOpacity(0.87);
 }

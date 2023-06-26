@@ -1,6 +1,6 @@
 import 'package:n8_default_project/utils/icons.dart';
 
-import '../models/todo_category.dart';
+import '../models/todo_model/todo_category.dart';
 
 class AppRepository {
   static List<ToDoCategory> categories = [

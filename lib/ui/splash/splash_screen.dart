@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:n8_default_project/ui/router.dart';
 
-import '../../data/storage_repo/storage_repository.dart';
+import '../../data/local/storage_repo/storage_repository.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
