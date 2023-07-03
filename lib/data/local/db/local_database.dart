@@ -68,6 +68,7 @@ class LocalDatabase {
     allToDos = (await db.query(ToDoModelFields.toDoTable))
         .map((e) => ToDoModelSql.fromJson(e))
         .toList();
+
     return allToDos;
   }
 
@@ -78,6 +79,18 @@ class LocalDatabase {
       {ToDoModelFields.status: statusIndex},
       where: "${ToDoModelFields.id} = ?",
       whereArgs: [id],
+    );
+  }
+
+
+
+  static updateToDo({required ToDoModelSql toDoModelSql}) async {
+    final db = await getInstance.database;
+    db.update(
+      ToDoModelFields.toDoTable,
+      toDoModelSql.toJson(),
+      where: "${ToDoModelFields.id} = ?",
+      whereArgs: [toDoModelSql.id],
     );
   }
 
