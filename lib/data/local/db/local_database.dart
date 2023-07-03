@@ -1,4 +1,5 @@
-import 'package:n8_default_project/models/todo_model_for_sql/todo_model_sql.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:n8_default_project/models/contact_model/contact_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -17,7 +18,7 @@ class LocalDatabase {
     if (_database != null) {
       return _database!;
     } else {
-      _database = await _initDB("todos.db");
+      _database = await _initDB("contacts.db");
       return _database!;
     }
   }
@@ -34,72 +35,87 @@ class LocalDatabase {
     const intType = "INTEGER DEFAULT 0";
 
     await db.execute('''
-    CREATE TABLE ${ToDoModelFields.toDoTable} (
-    ${ToDoModelFields.id} $idType,
-    ${ToDoModelFields.categoryId} $intType,
-    ${ToDoModelFields.title} $textType,
-    ${ToDoModelFields.description} $textType,
-    ${ToDoModelFields.createdAt} $textType,
-    ${ToDoModelFields.expiredDate} $textType,
-    ${ToDoModelFields.toDoImportance} $intType,
-    ${ToDoModelFields.status} $intType
+    CREATE TABLE ${ContactModelFields.contactsTable} (
+    ${ContactModelFields.id} $idType,
+    ${ContactModelFields.name} $textType,
+    ${ContactModelFields.phone} $textType
     )
     ''');
 
-    // '''
-    //  CREATE TABLE toDoTAble (_id INTEGER PRIMARY KEY AUTOINCREMENT, )
-    // '''
-
-    // db.query(
-    //   ToDoModelFields.toDoTable,
-    //   orderBy: "${ToDoModelFields.title} ASC",
-    // );
+    debugPrint("-------DB----------CREATED---------");
   }
 
-  static Future<ToDoModelSql> insertTodo(ToDoModelSql toDo) async {
+  static Future<ContactModelSql> insertContact(
+      ContactModelSql contactsModelSql) async {
     final db = await getInstance.database;
-    final int id = await db.insert(ToDoModelFields.toDoTable, toDo.toJson());
-    return toDo.copyWith(id: id);
+    final int id = await db.insert(
+        ContactModelFields.contactsTable, contactsModelSql.toJson());
+    return contactsModelSql.copyWith(id: id);
   }
 
-  static Future<List<ToDoModelSql>> getAllToDos() async {
-    List<ToDoModelSql> allToDos = [];
+  static Future<List<ContactModelSql>> getAllContacts() async {
+    List<ContactModelSql> allToDos = [];
     final db = await getInstance.database;
-    allToDos = (await db.query(ToDoModelFields.toDoTable))
-        .map((e) => ToDoModelSql.fromJson(e))
+    allToDos = (await db.query(ContactModelFields.contactsTable))
+        .map((e) => ContactModelSql.fromJson(e))
         .toList();
 
     return allToDos;
   }
 
-  static updateToDoStatus({required int id, required int statusIndex}) async {
+  static updateContactName({required int id, required String name}) async {
     final db = await getInstance.database;
     db.update(
-      ToDoModelFields.toDoTable,
-      {ToDoModelFields.status: statusIndex},
-      where: "${ToDoModelFields.id} = ?",
+      ContactModelFields.contactsTable,
+      {ContactModelFields.name: name},
+      where: "${ContactModelFields.id} = ?",
       whereArgs: [id],
     );
   }
 
-
-
-  static updateToDo({required ToDoModelSql toDoModelSql}) async {
+  static updateContact({required ContactModelSql contactsModelSql}) async {
     final db = await getInstance.database;
     db.update(
-      ToDoModelFields.toDoTable,
-      toDoModelSql.toJson(),
-      where: "${ToDoModelFields.id} = ?",
-      whereArgs: [toDoModelSql.id],
+      ContactModelFields.contactsTable,
+      contactsModelSql.toJson(),
+      where: "${ContactModelFields.id} = ?",
+      whereArgs: [contactsModelSql.id],
     );
   }
 
-  static deleteToDo(int id) async {
+  static deleteContact(int id) async {
     final db = await getInstance.database;
     db.delete(
-      ToDoModelFields.toDoTable,
-      where: "${ToDoModelFields.id} = ?",
+      ContactModelFields.contactsTable,
+      where: "${ContactModelFields.id} = ?",
       whereArgs: [id],
     );
+  }
+
+  static Future<List<ContactModelSql>> getContactsByLimit(int limit) async {
+    List<ContactModelSql> allToDos = [];
+    final db = await getInstance.database;
+    allToDos = (await db.query(ContactModelFields.contactsTable,
+            limit: limit, orderBy: "${ContactModelFields.name} ASC"))
+        .map((e) => ContactModelSql.fromJson(e))
+        .toList();
+
+    return allToDos;
+  }
+
+  static Future<ContactModelSql?> getSingleContact(int id) async {
+    List<ContactModelSql> contacts = [];
+    final db = await getInstance.database;
+    contacts = (await db.query(
+      ContactModelFields.contactsTable,
+      where: "${ContactModelFields.id} = ?",
+      whereArgs: [id],
+    ))
+        .map((e) => ContactModelSql.fromJson(e))
+        .toList();
+
+    if (contacts.isNotEmpty) {
+      return contacts.first;
+    }
   }
 }

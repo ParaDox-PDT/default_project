@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:n8_default_project/ui/router.dart';
-import 'package:n8_default_project/utils/colors.dart';
-import 'package:n8_default_project/utils/theme.dart';
+import 'package:n8_default_project/ui/my_contacts_screen.dart';
 
 import 'data/local/storage_repo/storage_repository.dart';
 
@@ -18,20 +15,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
-          themeMode: ThemeMode.dark,
-          darkTheme: AppTheme.darkTheme,
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          initialRoute: RouteNames.initial,
-          onGenerateRoute: AppRoutes.generateRoute,
-        );
-      },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyContactsScreen(),
     );
   }
 }
