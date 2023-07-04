@@ -90,15 +90,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: LikeButton(
                                     onTap: (isLiked) async {
                                       setState(() {
-
                                       });
                                       favorites.add(index.toString());
                                       _saveList("favorites", favorites);
                                       if(isLiked){
-                                         productModels[index].isLike=false;
+                                        favorites.removeAt(index);
+                                        _saveList("favorites", favorites);
+                                         productModels[index].isLike=!productModels[index].isLike;
                                       }
                                       else{
-                                        productModels[index].isLike=true;
+                                        // favorites.removeWhere((element) => productModels[index].isLike==!false);
+                                        // favorites.removeAt(index);
+                                        _saveList("favorites", favorites);
+                                        productModels[index].isLike=!productModels[index].isLike;
                                       };
                                     },
                                     likeBuilder: (isLiked) {

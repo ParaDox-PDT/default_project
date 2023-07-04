@@ -35,7 +35,7 @@ class _GlobalScreenState extends State<GlobalScreen> {
               fontSize: 20, color: Colors.black, fontWeight: FontWeight.w400),
         ),
         actions: [IconButton(onPressed: (){
-          indexes.add(widget.index.toString());
+            indexes.add(widget.index.toString());
           _saveList("productsIndexes",indexes);
           _init();
           Navigator.pop(context);

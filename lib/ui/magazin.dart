@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:n8_default_project/local/storage_repository.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../models/list_model.dart';
 
@@ -71,6 +72,7 @@ class _MarketScreenState extends State<MarketScreen> {
                     children: [
                       SlidableAction(
                         onPressed: (v) {
+                          productModels[selectedProducts[index]].count=1;
                           setState(() {
                             selectedProducts.removeAt(index);
                             _saveList(selectedProducts);
@@ -93,80 +95,118 @@ class _MarketScreenState extends State<MarketScreen> {
                     child: Padding(
                         padding:
                             const EdgeInsets.only(left: 10, right: 10, top: 10),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Stack(
+                          alignment: Alignment.centerRight,
+                          children:[ Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                    productModels[selectedProducts[index]].img,
+                                    height: 100,
+                                    width: 100),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        text: "Nomi - ",
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white),
+                                        children: [
+                                          TextSpan(
+                                            text: productModels[
+                                                    selectedProducts[index]]
+                                                .title,
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.orange),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: "Narxi - ",
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white),
+                                        children: [
+                                          TextSpan(
+                                            text: productModels[
+                                                    selectedProducts[index]]
+                                                .price,
+                                            style: const TextStyle(
+                                                decoration:
+                                                    TextDecoration.lineThrough,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        text: productModels[selectedProducts[index]]
+                                            .skidka,
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.orange),children: [TextSpan(text: "\nCount--${productModels[selectedProducts[index]].count}")]
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                              ]),Column(
                             children: [
-                              Image.asset(
-                                  productModels[selectedProducts[index]].img,
-                                  height: 100,
-                                  width: 100),
-                              const SizedBox(
-                                height: 20,
+                              ZoomTapAnimation(
+                                onTap: (){
+                                  setState(() {
+                                    productModels[selectedProducts[index]].count++;
+                                  });
+                                },
+                                child: Container(
+                                  child: Icon(Icons.add),
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),color: Colors.transparent,border: Border.all(width: 2,color: Colors.black)),
+                                ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      text: "Nomi - ",
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
-                                      children: [
-                                        TextSpan(
-                                          text: productModels[
-                                                  selectedProducts[index]]
-                                              .title,
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.orange),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: "Narxi - ",
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
-                                      children: [
-                                        TextSpan(
-                                          text: productModels[
-                                                  selectedProducts[index]]
-                                              .price,
-                                          style: const TextStyle(
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.red),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  RichText(
-                                    text: TextSpan(
-                                      text: productModels[selectedProducts[index]]
-                                          .skidka,
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.orange),
-                                    ),
-                                  ),
-                                ],
+                              ZoomTapAnimation(
+                                onTap: (){
+                                  setState(() {
+                                    if(productModels[selectedProducts[index]].count>=1) {
+                                      productModels[selectedProducts[index]]
+                                          .count--;
+                                    }else{
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${productModels[selectedProducts[index]].title} elementi soni 0 ga teng")));
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  child: Icon(Icons.remove),
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),color: Colors.transparent,border: Border.all(width: 2,color: Colors.black)),
+                                ),
                               ),
-                            ])),
+                            ],
+                          ),]
+                        )),
                   ),
                 ),
               ),
