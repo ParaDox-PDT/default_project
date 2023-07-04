@@ -120,6 +120,16 @@ class LocalDatabase {
     return allToDos;
   }
 
+  static Future<List<ContactModelSql>> getSearchContact(String query) async {
+    List<ContactModelSql> allToDos = [];
+    final db = await getInstance.database;
+    allToDos = (await db.query(ContactModelFields.contactsTable,where: "${ContactModelFields.name} like ?", whereArgs: ["$query%"]))
+        .map((e) => ContactModelSql.fromJson(e))
+        .toList();
+
+    return allToDos;
+  }
+
   static Future<ContactModelSql?> getSingleContact(int id) async {
     List<ContactModelSql> contacts = [];
     final db = await getInstance.database;

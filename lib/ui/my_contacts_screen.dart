@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:n8_default_project/data/local/db/local_database.dart';
 import 'package:n8_default_project/ui/add_screen/add_screen.dart';
 import 'package:n8_default_project/ui/profile/profile_screen.dart';
+import 'package:n8_default_project/ui/search_screen/search.dart';
 import 'package:n8_default_project/utils/icon.dart';
 
 import '../models/contact_model/contact_model.dart';
@@ -45,7 +46,11 @@ class _MyContactsScreenState extends State<MyContactsScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                return SearchScreen();
+              }));
+            },
             icon: Icon(Icons.search),
             color: Colors.black,
           ),

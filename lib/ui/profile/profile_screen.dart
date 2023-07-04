@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:n8_default_project/ui/my_contacts_screen.dart';
 import 'package:n8_default_project/utils/icon.dart';
 
@@ -17,6 +18,10 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   late ContactModelSql contactModelSql;
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: '+998 (##) ###-##-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   _updateContacts() async {
     contactModelSql = (await LocalDatabase.getSingleContact(widget.id))!;
@@ -198,8 +203,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             Navigator.pushReplacement(context,
                                                 MaterialPageRoute(
                                                     builder: (context) {
-                                              return MyContactsScreen();
-                                            }));
+                                                      return MyContactsScreen();
+                                                    }));
+
                                           },
                                           child: Text(
                                             "Yes",
@@ -285,7 +291,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 30),
                   TextField(
                     controller: phoneController,
-                    decoration: const InputDecoration(hintText: "Phone"),
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
+                    inputFormatters: [maskFormatter],
+                    decoration: InputDecoration(
+                      hintText: "+998  _ _   _ _ _   _ _   _ _",
+                      hintStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Roboto",
+                          color: Color(0xFF9E9E9E)),
+                    ),
                   ),
                   const SizedBox(height: 30),
                   TextButton(
