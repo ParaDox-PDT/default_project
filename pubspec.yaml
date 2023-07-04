@@ -22,6 +22,7 @@ dependencies:
   sqflite: ^2.2.8+4
   path_provider: ^2.0.15
   path: ^1.8.3
+  mask_text_input_formatter: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -54,4 +55,23 @@ flutter:
         - asset: assets/fonts/Sora-Bold.ttf
         - asset: assets/fonts/Sora-ExtraBold.ttf
           style: italic
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/roboto/Montserrat-Black.ttf
+        - asset: assets/fonts/roboto/Montserrat-BlackItalic.ttf
+        - asset: assets/fonts/roboto/Montserrat-Bold.ttf
+        - asset: assets/fonts/roboto/Montserrat-BoldItalic.ttf
+        - asset: assets/fonts/roboto/Montserrat-ExtraBold.ttf
+        - asset: assets/fonts/roboto/Montserrat-ExtraBoldItalic.ttf
+        - asset: assets/fonts/roboto/Montserrat-ExtraLight.ttf
+        - asset: assets/fonts/roboto/Montserrat-ExtraLightItalic.ttf
+        - asset: assets/fonts/roboto/Montserrat-Italic.ttf
+        - asset: assets/fonts/roboto/Montserrat-Light.ttf
+        - asset: assets/fonts/roboto/Montserrat-LightItalic.ttf
+        - asset: assets/fonts/roboto/Montserrat-MediumItalic.ttf
+        - asset: assets/fonts/roboto/Montserrat-Medium.ttf
+        - asset: assets/fonts/roboto/Montserrat-Regular.ttf
+        - asset: assets/fonts/roboto/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/roboto/Montserrat-Thin.ttf
+        - asset: assets/fonts/roboto/Montserrat-ThinItalic.ttf
 

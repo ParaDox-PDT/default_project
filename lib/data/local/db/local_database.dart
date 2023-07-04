@@ -63,6 +63,16 @@ class LocalDatabase {
     return allToDos;
   }
 
+  static Future<List<ContactModelSql>> getSortByAllContacts() async {
+    List<ContactModelSql> allToDos = [];
+    final db = await getInstance.database;
+    allToDos = (await db.query(ContactModelFields.contactsTable,orderBy:  "${ContactModelFields.name} ASC"))
+        .map((e) => ContactModelSql.fromJson(e))
+        .toList();
+
+    return allToDos;
+  }
+
   static updateContactName({required int id, required String name}) async {
     final db = await getInstance.database;
     db.update(
@@ -89,6 +99,13 @@ class LocalDatabase {
       ContactModelFields.contactsTable,
       where: "${ContactModelFields.id} = ?",
       whereArgs: [id],
+    );
+  }
+
+  static deleteAllContacts() async {
+    final db = await getInstance.database;
+    db.delete(
+      ContactModelFields.contactsTable,
     );
   }
 
