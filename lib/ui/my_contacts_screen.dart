@@ -16,10 +16,38 @@ class MyContactsScreen extends StatefulWidget {
 }
 
 class _MyContactsScreenState extends State<MyContactsScreen> {
+  List<String> options = <String>[
+    'Default',
+    'A-Z',
+    'Z-A',
+  ];
+  String dropdownValue = 'Default';
+
+  String searchText = "";
+
+  int selectedMenu = 0;
+
   List<ContactModelSql> contacts = [];
+  List<ContactModelSql> allContacts = [];
 
   _updateContacts() async {
+    allContacts = await LocalDatabase.getAllContacts();
     contacts = await LocalDatabase.getAllContacts();
+    setState(() {});
+  }
+
+  _sortContacts(String order) async {
+    contacts = await LocalDatabase.getContactsByAlphabet(order);
+    setState(() {});
+  }
+
+  _deleteAllContact() async {
+    contacts = await LocalDatabase.deleteAllContacts();
+    setState(() {});
+  }
+
+  _getContactByQuery(String query) async {
+    contacts = await LocalDatabase.getContactsByQuery(query);
     setState(() {});
   }
 
@@ -46,171 +74,184 @@ class _MyContactsScreenState extends State<MyContactsScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                return SearchScreen();
-              }));
+            onPressed: () async {
+              searchText = await showSearch(
+                context: context,
+                delegate: ContactSearchView(
+                  suggestionList: allContacts.map((e) => e).toList(),
+                ),
+              );
+              if (searchText.isNotEmpty) {
+                _getContactByQuery(searchText);
+              }else{
+                _updateContacts();
+              }
             },
             icon: Icon(Icons.search),
             color: Colors.black,
           ),
-          IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      backgroundColor: Colors.white,
-                      content: Container(
-                        width: 224,
-                        height: 120,
-                        child: Column(
-                          children: [
-                            ListTile(
-                              title: Text("Sort by"),
-                              titleTextStyle: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Roboto",
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black),
-                              trailing: Icon(Icons.arrow_right),
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        content: Container(
-                                          height: 120,
-                                          child: Column(
-                                            children: [
-                                              TextButton(
-                                                onPressed: () {},
-                                                child: Text(
-                                                  "A-Z",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.black,
-                                                      fontFamily: "Roboto"),
-                                                ),
-                                              ),
-                                              TextButton(
-                                                  onPressed: () {},
-                                                  child: Text("Z-A",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: Colors.black,
-                                                          fontFamily:
-                                                              "Roboto"))),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    });
-                              },
-                            ),
-                            ListTile(
-                              title: Text("Delete all"),
-                              titleTextStyle: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Roboto",
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black),
-                              onTap: () {
-                                LocalDatabase.deleteAllContacts();
-                                setState(() {});
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-            },
-            icon: Icon(Icons.more_vert),
-            color: Colors.black,
-          ),
+          PopupMenuButton<int>(
+              icon: Icon(Icons.more_vert),
+              onSelected: (int item) {
+                setState(() {
+                  selectedMenu = item;
+                });
+                if (selectedMenu == 1) {
+                  _deleteAllContact();
+                  _updateContacts();
+                } else {
+                  _sortContacts(selectedMenu == 2 ? "ASC" : "DESC");
+                }
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+                    const PopupMenuItem<int>(
+                      value: 1,
+                      child: Text('Delete all'),
+                    ),
+                    const PopupMenuItem<int>(
+                      value: 2,
+                      child: Text('Sort by A-Z'),
+                    ),
+                    const PopupMenuItem<int>(
+                      value: 3,
+                      child: Text('Sort by Z-A'),
+                    ),
+                  ])
         ],
       ),
-      body: FutureBuilder<List<ContactModelSql>>(
-        future: LocalDatabase.getAllContacts(),
-        builder: (
-          context,
-          AsyncSnapshot<List<ContactModelSql>> rowData,
-        ) {
-          if (rowData.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (rowData.hasData) {
-            List<ContactModelSql> contacts = rowData.data!;
-            return contacts.isNotEmpty
-                ? ListView(
-                    children: List.generate(
-                      contacts.length,
-                      (index) => ListTile(
-                        leading: IconButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return ProfileScreen(id: contacts[index].id!);
-                              }));
-                            },
-                            icon:
-                                SvgPicture.asset(AppIcons.accountImageCircle)),
-                        title: Text(
-                          contacts[index].name,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        titleTextStyle: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "Roboto",
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black),
-                        subtitle: Text("${contacts[index].phone}"),
-                        subtitleTextStyle: TextStyle(
-                            fontSize: 14,
-                            fontFamily: "Roboto",
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF8B8B8B)),
-                        trailing: IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(AppIcons.call),
-                        ),
-                      ),
-                    ),
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      body: contacts.isNotEmpty
+          ? ListView(
+              children: List.generate(
+                contacts.length,
+                (index) => ListTile(
+                  leading: IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return ProfileScreen(id: contacts[index].id!);
+                        }));
+                      },
+                      icon: SvgPicture.asset(AppIcons.accountImageCircle)),
+                  title: Text(
+                    contacts[index].name,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  titleTextStyle: TextStyle(
+                      fontSize: 16,
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black),
+                  subtitle: Text("${contacts[index].phone}"),
+                  subtitleTextStyle: TextStyle(
+                      fontSize: 14,
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF8B8B8B)),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: SvgPicture.asset(AppIcons.call),
+                  ),
+                ),
+              ),
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Column(
                     children: [
-                      Center(
-                        child: Column(
-                          children: [
-                            SvgPicture.asset(AppIcons.box),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "You have no contacts yet",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black.withOpacity(0.4),
-                                  fontSize: 16,
-                                  fontFamily: "Roboto"),
-                            )
-                          ],
-                        ),
+                      SvgPicture.asset(AppIcons.box),
+                      SizedBox(
+                        height: 20,
                       ),
+                      Text(
+                        "You have no contacts yet",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black.withOpacity(0.4),
+                            fontSize: 16,
+                            fontFamily: "Roboto"),
+                      )
                     ],
-                  );
-          }
-          return Center(child: Text(rowData.error.toString()));
-        },
-      ),
+                  ),
+                ),
+              ],
+            ),
+      // FutureBuilder<List<ContactModelSql>>(
+      //   future: LocalDatabase.getAllContacts(),
+      //   builder: (
+      //     context,
+      //     AsyncSnapshot<List<ContactModelSql>> rowData,
+      //   ) {
+      //     if (rowData.connectionState == ConnectionState.waiting) {
+      //       return const Center(
+      //         child: CircularProgressIndicator(),
+      //       );
+      //     } else if (rowData.hasData) {
+      //       List<ContactModelSql> contacts = rowData.data!;
+      //       return contacts.isNotEmpty
+      //           ? ListView(
+      //               children: List.generate(
+      //                 contacts.length,
+      //                 (index) => ListTile(
+      //                   leading: IconButton(
+      //                       onPressed: () {
+      //                         Navigator.pushReplacement(context,
+      //                             MaterialPageRoute(builder: (context) {
+      //                           return ProfileScreen(id: contacts[index].id!);
+      //                         }));
+      //                       },
+      //                       icon:
+      //                           SvgPicture.asset(AppIcons.accountImageCircle)),
+      //                   title: Text(
+      //                     contacts[index].name,
+      //                     overflow: TextOverflow.ellipsis,
+      //                   ),
+      //                   titleTextStyle: TextStyle(
+      //                       fontSize: 16,
+      //                       fontFamily: "Roboto",
+      //                       fontWeight: FontWeight.w600,
+      //                       color: Colors.black),
+      //                   subtitle: Text("${contacts[index].phone}"),
+      //                   subtitleTextStyle: TextStyle(
+      //                       fontSize: 14,
+      //                       fontFamily: "Roboto",
+      //                       fontWeight: FontWeight.w400,
+      //                       color: Color(0xFF8B8B8B)),
+      //                   trailing: IconButton(
+      //                     onPressed: () {},
+      //                     icon: SvgPicture.asset(AppIcons.call),
+      //                   ),
+      //                 ),
+      //               ),
+      //             )
+      //           : Column(
+      //               mainAxisAlignment: MainAxisAlignment.center,
+      //               children: [
+      //                 Center(
+      //                   child: Column(
+      //                     children: [
+      //                       SvgPicture.asset(AppIcons.box),
+      //                       SizedBox(
+      //                         height: 20,
+      //                       ),
+      //                       Text(
+      //                         "You have no contacts yet",
+      //                         style: TextStyle(
+      //                             fontWeight: FontWeight.w500,
+      //                             color: Colors.black.withOpacity(0.4),
+      //                             fontSize: 16,
+      //                             fontFamily: "Roboto"),
+      //                       )
+      //                     ],
+      //                   ),
+      //                 ),
+      //               ],
+      //             );
+      //     }
+      //     return Center(child: Text(rowData.error.toString()));
+      //   },
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacement(context,
