@@ -15,7 +15,7 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  var maskFormatter = new MaskTextInputFormatter(
+  var maskFormatter = MaskTextInputFormatter(
       mask: '+998 (##) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
@@ -42,7 +42,7 @@ class _AddScreenState extends State<AddScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA),
+      backgroundColor: const Color(0xFFFAFAFA),
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -50,12 +50,12 @@ class _AddScreenState extends State<AddScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return MyContactsScreen();
+                    return const MyContactsScreen();
                   },
                 ),
               );
             },
-            icon: Icon(Icons.arrow_back)),
+            icon: const Icon(Icons.arrow_back)),
         backgroundColor: Colors.white,
         elevation: 1,
         title: const Text(
@@ -80,20 +80,20 @@ class _AddScreenState extends State<AddScreen> {
                     });
                   }
                 : null,
-            icon: Icon(Icons.done),
+            icon: const Icon(Icons.done),
             color: Colors.black,
           ),
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Text(
+            const Text(
               "Enter name",
               style: TextStyle(
                   fontSize: 16,
@@ -101,7 +101,7 @@ class _AddScreenState extends State<AddScreen> {
                   fontFamily: "Roboto",
                   color: Colors.black),
             ),
-            SizedBox(
+            const SizedBox(
               height: 6,
             ),
             TextField(
@@ -116,52 +116,52 @@ class _AddScreenState extends State<AddScreen> {
               },
               decoration: InputDecoration(
                 hintText: "Name",
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     fontFamily: "Roboto",
                     color: Color(0xFF9E9E9E)),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               "Phone number",
               style: TextStyle(
                   fontSize: 16,
@@ -169,7 +169,7 @@ class _AddScreenState extends State<AddScreen> {
                   fontFamily: "Roboto",
                   color: Colors.black),
             ),
-            SizedBox(
+            const SizedBox(
               height: 6,
             ),
             TextField(
@@ -184,42 +184,42 @@ class _AddScreenState extends State<AddScreen> {
               },
               decoration: InputDecoration(
                 hintText: "+998  _ _   _ _ _   _ _   _ _",
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     fontFamily: "Roboto",
                     color: Color(0xFF9E9E9E)),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     width: 1,
                     color: Color(0xFFD9D9D9),
                   ),

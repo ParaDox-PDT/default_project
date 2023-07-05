@@ -83,7 +83,7 @@ class _MyContactsScreenState extends State<MyContactsScreen> {
               );
               if (searchText.isNotEmpty) {
                 _getContactByQuery(searchText);
-              }else{
+              } else {
                 _updateContacts();
               }
             },
@@ -124,13 +124,14 @@ class _MyContactsScreenState extends State<MyContactsScreen> {
               children: List.generate(
                 contacts.length,
                 (index) => ListTile(
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ProfileScreen(id: contacts[index].id!);
+                    }));
+                  },
                   leading: IconButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return ProfileScreen(id: contacts[index].id!);
-                        }));
-                      },
+                      onPressed: () {},
                       icon: SvgPicture.asset(AppIcons.accountImageCircle)),
                   title: Text(
                     contacts[index].name,

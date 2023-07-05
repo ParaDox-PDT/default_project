@@ -18,7 +18,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   late ContactModelSql contactModelSql;
-  var maskFormatter = new MaskTextInputFormatter(
+  var maskFormatter = MaskTextInputFormatter(
       mask: '+998 (##) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
@@ -37,16 +37,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA),
+      backgroundColor: const Color(0xFFFAFAFA),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) {
-              return MyContactsScreen();
+              return const MyContactsScreen();
             }));
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
         backgroundColor: Colors.white,
         elevation: 1,
@@ -61,17 +61,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 52,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 150,
               ),
               SvgPicture.asset("assets/svg/account.svg"),
-              SizedBox(
+              const SizedBox(
                 width: 30,
               ),
               IconButton(
@@ -80,12 +80,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            content: Container(
+                            content: SizedBox(
                               height: 152,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Delete",
                                     style: TextStyle(
                                         fontSize: 16,
@@ -93,35 +93,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         fontWeight: FontWeight.w600,
                                         fontFamily: "Roboto"),
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "Are you sure you want to remove Bobur Mavlonov from your contacts?",
-                                    style: TextStyle(
+                                  const SizedBox(height: 10,),
+                                   Text(
+                                    "Are you sure you want to remove ${contactModelSql.name} from your contacts?",
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "Roboto"),
                                   ),
-                                  SizedBox(height: 10,),
+                                  const SizedBox(height: 10,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       TextButton(
                                           onPressed: () {
                                             Navigator.pop(context);
-                                          }, child: Text("No")),
+                                          }, child: const Text("No")),
                                       TextButton(
                                           onPressed: () {
                                             LocalDatabase.deleteContact(
                                                 contactModelSql.id ?? 0);
-                                            Navigator.pushReplacement(context,
+                                            Navigator.pop(context);
+                                            Navigator.push(context,
                                                 MaterialPageRoute(
                                                     builder: (context) {
-                                                      return MyContactsScreen();
+                                                      return const MyContactsScreen();
                                                     }));
-
                                           },
-                                          child: Text(
+                                          child: const Text(
                                             "Yes",
                                             style: TextStyle(color: Colors.red),
                                           )),
@@ -136,24 +136,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   icon: SvgPicture.asset(AppIcons.delete)),
               IconButton(
                   onPressed: () {
-                    // LocalDatabase.updateContact(
-                    //   contactsModelSql:
-                    //       contacts[index].copyWith(phone: "123421234"),
-                    // );
                     _updateSingleContact(contactModelSql);
                     _updateContacts();
                   },
-                  icon: Icon(Icons.edit)),
+                  icon: const Icon(Icons.edit)),
             ],
           ),
           Text(
             contactModelSql.name,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 22,
                 fontFamily: "Roboto",
                 fontWeight: FontWeight.w600),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Row(
@@ -161,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Text(
                 contactModelSql.phone,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
                     fontFamily: "Roboto",
                     fontWeight: FontWeight.w600),
@@ -208,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.done,
                     inputFormatters: [maskFormatter],
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "+998  _ _   _ _ _   _ _   _ _",
                       hintStyle: TextStyle(
                           fontSize: 16,
@@ -229,7 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         _updateContacts();
                         Navigator.pop(context);
                       },
-                      child: Text("Update"))
+                      child: const Text("Update"))
                 ],
               ),
             ),

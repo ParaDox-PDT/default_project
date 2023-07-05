@@ -16,7 +16,7 @@ class ContactSearchView extends SearchDelegate {
           onPressed: () {
             query = "";
           },
-          icon: Icon(Icons.close))
+          icon: const Icon(Icons.close))
     ];
   }
 
@@ -26,7 +26,7 @@ class ContactSearchView extends SearchDelegate {
         onPressed: () {
           close(context, query);
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back));
   }
 
   @override
@@ -49,7 +49,7 @@ class ContactSearchView extends SearchDelegate {
       return result.contains(input);
     }).toList();
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: ListView(
         children: List.generate(
             suggestions.length,
@@ -62,13 +62,13 @@ class ContactSearchView extends SearchDelegate {
                     suggestions[index].name,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  titleTextStyle: TextStyle(
+                  titleTextStyle: const TextStyle(
                       fontSize: 16,
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.w600,
                       color: Colors.black),
-                  subtitle: Text("${suggestions[index].phone}"),
-                  subtitleTextStyle: TextStyle(
+                  subtitle: Text(suggestions[index].phone),
+                  subtitleTextStyle: const TextStyle(
                       fontSize: 14,
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.w400,
