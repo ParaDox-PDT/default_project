@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
+import 'package:n8_default_project/local/db/local_database.dart';
 import 'package:n8_default_project/ui/login_screen.dart';
 import 'package:n8_default_project/ui/products/global_screen.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../local/storage_repository.dart';
 import '../models/list_model.dart';
+import '../models/product_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,16 +18,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isLoggined = false;
-  List<String> favorites=[];
+  List<ProductsModel> products=[];
 
   Future<void> _init() async {
     isLoggined = StorageRepository.getBool("is_login");
-    favorites=StorageRepository.getList("favorites");
+    products = await LocalDatabase.getAllContacts();
+    setState(() {
+    });
   }
+
+  _updateIsLiked(int isLike,int id)async{
+    await LocalDatabase.updateIsLiked(id: id, isLike: isLike);
+    _init();
+  }
+
 
 
   @override
   void initState() {
+    if(!isLoggined){
+      for (var element in productModels) {
+         LocalDatabase.insertContact(element);
+      }
+    }
     _init();
     super.initState();
   }
@@ -48,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: GridView.builder(
-                itemCount: productModels.length,
+                itemCount: products.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 0.65,
@@ -88,28 +103,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Positioned(
                                   right: 0,
                                   child: LikeButton(
-                                    onTap: (isLiked) async {
-                                      setState(() {
-                                      });
-                                      favorites.add(index.toString());
-                                      _saveList("favorites", favorites);
-                                      if(isLiked){
-                                        favorites.removeAt(index);
-                                        _saveList("favorites", favorites);
-                                         productModels[index].isLike=!productModels[index].isLike;
-                                      }
-                                      else{
-                                        // favorites.removeWhere((element) => productModels[index].isLike==!false);
-                                        // favorites.removeAt(index);
-                                        _saveList("favorites", favorites);
-                                        productModels[index].isLike=!productModels[index].isLike;
-                                      };
-                                    },
+                                    // onTap: (isLiked) async {
+                                    //   setState(() {
+                                    //   });
+                                    //   favorites.add(index.toString());
+                                    //   _saveList("favorites", favorites);
+                                    //   if(isLiked){
+                                    //     favorites.removeAt(index);
+                                    //     _saveList("favorites", favorites);
+                                    //      productModels[index].isLike=!productModels[index].isLike;
+                                    //   }
+                                    //   else{
+                                    //     // favorites.removeWhere((element) => productModels[index].isLike==!false);
+                                    //     // favorites.removeAt(index);
+                                    //     _saveList("favorites", favorites);
+                                    //     productModels[index].isLike=!productModels[index].isLike;
+                                    //   };
+                                    // },
                                     likeBuilder: (isLiked) {
                                       return Icon(
                                         Icons.favorite,
                                         color:
-                                        productModels[index].isLike ? Colors.redAccent : Colors.grey,
+                                        products[index].isLiked==1 ? Colors.redAccent : Colors.grey,
                                       );
                                     },
                                   ),
@@ -128,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontSize: 16),
                                 children: [
                                   TextSpan(
-                                    text: productModels[index].title,
+                                    text: products[index].title,
                                     style: TextStyle(
                                         color: Colors.orangeAccent,
                                         fontWeight: FontWeight.w500,
@@ -146,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontSize: 16),
                                 children: [
                                   TextSpan(
-                                    text: productModels[index].skidka,
+                                    text: products[index].skidka,
                                     style: TextStyle(
                                         color: Colors.redAccent,
                                         fontWeight: FontWeight.w500,
@@ -164,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 16,
                                   decoration: TextDecoration.lineThrough),
                             ),
-                            Text(productModels[index].price,
+                            Text(products[index].price,
                                 style: TextStyle(
                                   color: Colors.orangeAccent,
                                   fontWeight: FontWeight.w500,
