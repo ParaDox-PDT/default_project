@@ -6,6 +6,8 @@ import 'package:n8_default_project/models/contact_model/contact_model.dart';
 import 'package:n8_default_project/utils/img.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
+
+
 class AddScreen extends StatefulWidget {
   const AddScreen({
     super.key,
@@ -29,6 +31,20 @@ class _AddScreenState extends State<AddScreen> {
   final FocusNode nameFocus = FocusNode();
   final FocusNode phoneFocus = FocusNode();
   String img = AppImages.defaultImg;
+  final List<String> images=[
+    AppImages.defaultImg,
+    AppImages.img1,
+    AppImages.img2,
+    AppImages.img3,
+    AppImages.img4,
+    AppImages.img5,
+    AppImages.img6,
+    AppImages.img7,
+    AppImages.img8,
+    AppImages.img9,
+    AppImages.img10,
+  ];
+
 
   @override
   void initState() {
@@ -71,7 +87,9 @@ class _AddScreenState extends State<AddScreen> {
                   ContactModelSql newContact =
                       await LocalDatabase.insertContact(
                     ContactModelSql(
-                        phone: "+998$phone", name: nameController.text,img: img),
+                        phone: "+998$phone",
+                        name: nameController.text,
+                        img: img),
                   );
                   if ((newContact.id != null) && (newContact.id! > 0)) {
                     if (context.mounted) {
@@ -130,9 +148,9 @@ class _AddScreenState extends State<AddScreen> {
                                         alignment: WrapAlignment.center,
                                         spacing: 5,
                                         children: [
-                                          ZoomTapAnimation(
+                                          ...List.generate(images.length, (index) => ZoomTapAnimation(
                                               onTap: () {
-                                                img = AppImages.defaultImg;
+                                                img = images[index];
                                                 setState(() {});
                                                 Navigator.pop(context);
                                               },
@@ -140,10 +158,10 @@ class _AddScreenState extends State<AddScreen> {
                                                 alignment: Alignment.center,
                                                 children: [
                                                   Image.asset(
-                                                    AppImages.defaultImg,
+                                                    images[index],
                                                     width: 100,
                                                   ),
-                                                  img == AppImages.defaultImg
+                                                  img == images[index]
                                                       ? const Icon(
                                                     Icons.done,
                                                     size: 60,
@@ -153,265 +171,7 @@ class _AddScreenState extends State<AddScreen> {
                                                     width: 0,
                                                   ),
                                                 ],
-                                              )),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img1;
-                                              setState(() {});
-                                              Navigator.pop(context);
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img1,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img1
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img2;
-                                              setState(() {});
-                                              Navigator.pop(context);
-
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img2,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img2
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img3;
-                                              setState(() {});
-                                              Navigator.pop(context);
-
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img3,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img3
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img4;
-                                              setState(() {});
-                                              Navigator.pop(context);
-
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img4,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img4
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img5;
-                                              setState(() {});
-                                              Navigator.pop(context);
-
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img5,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img5
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img6;
-                                              setState(() {});
-                                              Navigator.pop(context);
-
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img6,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img6
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img7;
-                                              setState(() {});
-                                              Navigator.pop(context);
-
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img7,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img7
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img8;
-                                              setState(() {});
-                                              Navigator.pop(context);
-
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img8,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img8
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img9;
-                                              setState(() {});
-                                              Navigator.pop(context);
-
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img9,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img9
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          ZoomTapAnimation(
-                                            onTap: () {
-                                              img = AppImages.img10;
-                                              setState(() {});
-                                              Navigator.pop(context);
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  AppImages.img10,
-                                                  width: 100,
-                                                ),
-                                                img == AppImages.img10
-                                                    ? const Icon(
-                                                  Icons.done,
-                                                  size: 60,
-                                                  color: Colors.red,
-                                                )
-                                                    : const SizedBox(
-                                                  width: 0,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                              ))),
                                         ],
                                       ),
                                     );
@@ -525,8 +285,8 @@ class _AddScreenState extends State<AddScreen> {
                     },
                     decoration: InputDecoration(
                       prefixIcon: Container(
-                        padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 20),
                         child: const Text(
                           "+998",
                           style: TextStyle(
