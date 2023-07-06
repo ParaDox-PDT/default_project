@@ -57,7 +57,7 @@ class ContactSearchView extends SearchDelegate {
                   leading: IconButton(
                       onPressed: () {
                       },
-                      icon: SvgPicture.asset(AppIcons.accountImageCircle)),
+                      icon: Image.asset(suggestions[index].img)),
                   title: Text(
                     suggestions[index].name,
                     overflow: TextOverflow.ellipsis,

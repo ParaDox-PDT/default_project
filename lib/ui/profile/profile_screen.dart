@@ -64,87 +64,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 52,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const SizedBox(
-                width: 120,
-              ),
-              Image.asset(contactModelSql.img,width:150,fit: BoxFit.cover,),
-              const SizedBox(
-                width: 25,
-              ),
-              IconButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: SizedBox(
-                              height: 152,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Delete",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Roboto"),
-                                  ),
-                                  const SizedBox(height: 10,),
-                                   Text(
-                                    "Are you sure you want to remove ${contactModelSql.name} from your contacts?",
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "Roboto"),
-                                  ),
-                                  const SizedBox(height: 10,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          }, child: const Text("No")),
-                                      TextButton(
-                                          onPressed: () {
-                                            LocalDatabase.deleteContact(
-                                                contactModelSql.id ?? 0);
-                                            widget.deleteListener.call();
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text(
-                                            "Yes",
-                                            style: TextStyle(color: Colors.red),
-                                          )),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        });
-                  },
-                  icon: SvgPicture.asset(AppIcons.delete)),
-              IconButton(
-                  onPressed: () {
-                    _updateSingleContact(contactModelSql);
-                    _updateContacts();
-                  },
-                  icon: const Icon(Icons.edit)),
+              Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(width:MediaQuery.sizeOf(context).width-20,),
+                      Image.asset(contactModelSql.img,width:150,fit: BoxFit.cover,),
+                      Text(
+                        contactModelSql.name,
+                        style: const TextStyle(
+                            fontSize: 22,
+                            fontFamily: "Roboto",
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    content: SizedBox(
+                                      height: 152,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Delete",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily: "Roboto"),
+                                          ),
+                                          const SizedBox(height: 10,),
+                                          Text(
+                                            "Are you sure you want to remove ${contactModelSql.name} from your contacts?",
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: "Roboto"),
+                                          ),
+                                          const SizedBox(height: 10,),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  }, child: const Text("No")),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    LocalDatabase.deleteContact(
+                                                        contactModelSql.id ?? 0);
+                                                    widget.deleteListener.call();
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text(
+                                                    "Yes",
+                                                    style: TextStyle(color: Colors.red),
+                                                  )),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                          },
+                          icon: SvgPicture.asset(AppIcons.delete)),
+                      IconButton(
+                          onPressed: () {
+                            _updateSingleContact(contactModelSql);
+                            _updateContacts();
+                          },
+                          icon: const Icon(Icons.edit)),
+                    ],
+                  ),
+                ],
+              )
             ],
           ),
-          Text(
-            contactModelSql.name,
-            style: const TextStyle(
-                fontSize: 22,
-                fontFamily: "Roboto",
-                fontWeight: FontWeight.w600),
-          ),
+
           const SizedBox(
             height: 25,
           ),
