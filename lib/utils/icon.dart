@@ -1,4 +1,5 @@
 class AppIcons{
+  //svg
   static const String accountImageCircle="assets/svg/account_circle.svg";
   static const String box="assets/svg/box.svg";
   static const String call="assets/svg/call.svg";

@@ -32,13 +32,14 @@ class LocalDatabase {
   Future _createDB(Database db, int version) async {
     const idType = "INTEGER PRIMARY KEY AUTOINCREMENT";
     const textType = "TEXT NOT NULL";
-    const intType = "INTEGER DEFAULT 0";
+    // const intType = "INTEGER DEFAULT 0";
 
     await db.execute('''
     CREATE TABLE ${ContactModelFields.contactsTable} (
     ${ContactModelFields.id} $idType,
     ${ContactModelFields.name} $textType,
-    ${ContactModelFields.phone} $textType
+    ${ContactModelFields.phone} $textType,
+    ${ContactModelFields.img} $textType
     )
     ''');
 
@@ -145,6 +146,7 @@ class LocalDatabase {
     if (contacts.isNotEmpty) {
       return contacts.first;
     }
+    return contacts.last;
   }
 
   static Future<List<ContactModelSql>> getContactsByQuery(String query) async {

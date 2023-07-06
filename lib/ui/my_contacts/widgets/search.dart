@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:n8_default_project/models/contact_model/contact_model.dart';
 
-import '../../utils/icon.dart';
+import '../../../utils/icon.dart';
 
 class ContactSearchView extends SearchDelegate {
   ContactSearchView({required this.suggestionList});

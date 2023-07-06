@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:n8_default_project/ui/my_contacts_screen.dart';
 import 'package:n8_default_project/utils/icon.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../data/local/db/local_database.dart';
 import '../../models/contact_model/contact_model.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key, required this.id});
+  const ProfileScreen({super.key, required this.id, required this.deleteListener, required this.updateListener});
 
   final int id;
+  final VoidCallback deleteListener;
+  final VoidCallback updateListener;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -19,7 +21,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   late ContactModelSql contactModelSql;
   var maskFormatter = MaskTextInputFormatter(
-      mask: '+998 (##) ###-##-##',
+      mask: '(##) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
@@ -41,12 +43,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
-              return const MyContactsScreen();
-            }));
+            Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back,color: Colors.black,),
         ),
         backgroundColor: Colors.white,
         elevation: 1,
@@ -68,11 +67,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               const SizedBox(
-                width: 150,
+                width: 120,
               ),
-              SvgPicture.asset("assets/svg/account.svg"),
+              Image.asset(contactModelSql.img,width:150,fit: BoxFit.cover,),
               const SizedBox(
-                width: 30,
+                width: 25,
               ),
               IconButton(
                   onPressed: () {
@@ -114,12 +113,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           onPressed: () {
                                             LocalDatabase.deleteContact(
                                                 contactModelSql.id ?? 0);
+                                            widget.deleteListener.call();
                                             Navigator.pop(context);
-                                            Navigator.push(context,
-                                                MaterialPageRoute(
-                                                    builder: (context) {
-                                                      return const MyContactsScreen();
-                                                    }));
+                                            Navigator.pop(context);
                                           },
                                           child: const Text(
                                             "Yes",
@@ -165,10 +161,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Row(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () async{
+                        await launchUrl(Uri.parse("tel:${contactModelSql.phone}"));
+                      },
                       icon: SvgPicture.asset(AppIcons.callCircle)),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () async{
+                        await launchUrl(Uri.parse("sms:${contactModelSql.phone}"));
+                      },
                       icon: SvgPicture.asset(AppIcons.massage)),
                 ],
               )
@@ -183,7 +183,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final TextEditingController nameController =
         TextEditingController(text: contactModelSql!.name);
     final TextEditingController phoneController =
-        TextEditingController(text: contactModelSql.phone);
+        TextEditingController(text: contactModelSql.phone.substring(4));
+    final FocusNode phoneFocus = FocusNode();
 
     showDialog(
         context: context,
@@ -200,13 +201,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const SizedBox(height: 30),
                   TextField(
+                    onChanged: (number) {
+                      if (number.length == 14) {
+                        phoneFocus.unfocus();
+                      }
+                    },
                     controller: phoneController,
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.done,
                     inputFormatters: [maskFormatter],
-                    decoration: const InputDecoration(
-                      hintText: "+998  _ _   _ _ _   _ _   _ _",
-                      hintStyle: TextStyle(
+                    decoration:  InputDecoration(
+                      prefixIcon: Container(
+                        padding:
+                         const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                        child:  const Text(
+                          "+998",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Roboto",
+                              color: Colors.black),
+                        ),
+                      ),
+                      hintText: "_ _   _ _ _   _ _   _ _",
+                      hintStyle: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                           fontFamily: "Roboto",
@@ -216,14 +234,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 30),
                   TextButton(
                       onPressed: () async {
+                        String phone = phoneController.text.replaceAll(" ", "");
+                        phone = phone.replaceAll("(", "");
+                        phone = phone.replaceAll(")", "");
+                        phone = phone.replaceAll(")", "");
+                        phone = phone.replaceAll("-", "");
                         await LocalDatabase.updateContact(
                           contactsModelSql: contactModelSql.copyWith(
                             name: nameController.text,
-                            phone: phoneController.text,
+                            phone: "+998$phone",
                           ),
                         );
                         _updateContacts();
-                        Navigator.pop(context);
+                        widget.updateListener.call();
+                        if(context.mounted){Navigator.pop(context);}
                       },
                       child: const Text("Update"))
                 ],
