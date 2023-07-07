@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:n8_default_project/ui/app_routs.dart';
-import 'package:n8_default_project/ui/login_screen.dart';
-import 'package:n8_default_project/ui/home_screen.dart';
-import 'package:n8_default_project/ui/tab_box.dart';
+import 'package:n8_default_project/ui/app_routes.dart';
 
-import 'local/storage_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await StorageRepository.getInstance();
 
   runApp(const MyApp());
 }
@@ -24,9 +19,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // useMaterial3: true,
       ),
-      home: TabBox(),
-      // initialRoute: RoutNames.splash ,
-      // onGenerateRoute: AppRouts.generateRoute,
+      initialRoute: RouteNames.homeScreen ,
+      onGenerateRoute: AppRoutes.generateRoute,
     );
   }
 }
