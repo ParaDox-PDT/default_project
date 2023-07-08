@@ -16,6 +16,37 @@ class AppDetailsScreen extends StatefulWidget {
 }
 
 class _AppDetailsScreenState extends State<AppDetailsScreen> {
+  bool isEqual = false;
+
+  List<AppModel> apps =[];
+
+  _init() {
+    if (HiveService.cartsBox.length == 0) {
+      apps = [];
+    } else {
+      for (int i = 0; i < HiveService.cartsBox.length; i++) {
+        apps.add(HiveService.cartsBox.getAt(i));
+      }
+    }
+  }
+
+  _checkEqual() {
+    apps.forEach((element) {
+      if (element.title == widget.app.title) {
+        setState(() {
+          isEqual = true;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    _init();
+    _checkEqual();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +57,22 @@ class _AppDetailsScreenState extends State<AppDetailsScreen> {
         actions: [
           ZoomTapAnimation(
             child: Icon(Icons.save),
-            onTap:  (){
-              HiveService.cartsBox.add(widget.app);
-            },
-          )
+            onTap: !isEqual
+                ? () {
+                    HiveService.cartsBox.add(widget.app);
+                    setState(() {
+                      _init();
+                      _checkEqual();
+                    });
+                  }
+                : () {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("This app is already saved!!!")));
+                  },
+          ),
+          SizedBox(
+            width: 10,
+          ),
         ],
       ),
       body: Padding(

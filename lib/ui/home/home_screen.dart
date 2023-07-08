@@ -7,6 +7,7 @@ import 'package:n8_default_project/data/network/api_repository.dart';
 import 'package:n8_default_project/models/app_model.dart';
 import 'package:n8_default_project/ui/app_routes.dart';
 import 'package:n8_default_project/ui/home/widgets/search_view.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -71,16 +72,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       CarouselSlider(
                         items: [
                           ...List.generate(
-                            10,
+                            apps.length,
                             (index){
                               AppModel app = apps[index];
-                              return Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                width: MediaQuery.sizeOf(context).width * 0.8,
-                                color: Colors.yellowAccent,
-                                height: 100,
-                                child: CachedNetworkImage(imageUrl: app.thumbnail,),
-                                // child: Image.network(app.thumbnail),
+                              return ZoomTapAnimation(
+                                onTap: (){
+                                  Navigator.pushNamed(
+                                      context, RouteNames.appDetailsScreen,
+                                      arguments: {"app": app});
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                                  width: MediaQuery.sizeOf(context).width * 0.8,
+                                  color: Colors.yellowAccent,
+                                  height: 100,
+                                  child: CachedNetworkImage(imageUrl: app.thumbnail,),
+                                  // child: Image.network(app.thumbnail),
+                                ),
                               );
                             }
                           )
