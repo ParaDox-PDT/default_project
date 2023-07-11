@@ -1,6 +1,7 @@
 import 'package:n8_default_project/data/network/api_provider.dart';
-import 'package:n8_default_project/models/app_model.dart';
-import 'package:n8_default_project/models/universal_response.dart';
+
+import '../models/app_model.dart';
+import '../models/universal_response.dart';
 
 class AppRepository{
   final ApiProvider apiProvider;

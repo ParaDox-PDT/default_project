@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:n8_default_project/data/network/api_provider.dart';
 import 'package:n8_default_project/data/network/api_repository.dart';
-import 'package:n8_default_project/models/app_model.dart';
 import 'package:n8_default_project/ui/app_routes.dart';
 import 'package:n8_default_project/ui/home/widgets/search_view.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+
+import '../../data/models/app_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:n8_default_project/models/app_model.dart';
 import 'package:n8_default_project/ui/app_detail/app_detail_screen.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+
+import '../../../data/models/app_model.dart';
 
 class ContactSearchView extends SearchDelegate {
   ContactSearchView({required this.suggestionList});

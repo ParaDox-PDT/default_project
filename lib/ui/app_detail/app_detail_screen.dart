@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:n8_default_project/local/service/hive_service.dart';
-import 'package:n8_default_project/models/app_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+
+import '../../data/local/service/hive_service.dart';
+import '../../data/models/app_model.dart';
 
 class AppDetailsScreen extends StatefulWidget {
   const AppDetailsScreen({super.key, required this.app});

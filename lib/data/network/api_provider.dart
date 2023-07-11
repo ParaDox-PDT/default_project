@@ -1,9 +1,8 @@
 import 'dart:convert';
-
-import 'package:n8_default_project/models/app_model.dart';
-
-import '../../models/universal_response.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/app_model.dart';
+import '../models/universal_response.dart';
 
 class ApiProvider {
   Future<UniversalResponse> getAllData() async {

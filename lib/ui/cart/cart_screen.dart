@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:n8_default_project/local/service/hive_service.dart';
-import 'package:n8_default_project/models/app_model.dart';
 
+
+import '../../data/local/service/hive_service.dart';
+import '../../data/models/app_model.dart';
 import '../app_routes.dart';
 
 class CartScreen extends StatefulWidget {
